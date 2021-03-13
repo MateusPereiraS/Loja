@@ -170,7 +170,7 @@ router.post('/salvarperfil', async (req, res) => { // rota para edicao do perfil
                 usuario.save().then(() => {
                     console.log('ok')
                     req.flash('success_msg', 'Dados editado com sucesso')
-                    res.redirect('/usuarios/perfil/'+ usuario._id)
+                    res.redirect('/usuarios/perfil/'+usuario._id)
                 }).catch(err => {
                     req.flash('error_msg', 'Error ao editar dados' + err)
                     res.redirect('/')
