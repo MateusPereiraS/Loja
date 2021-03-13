@@ -1,0 +1,254 @@
+{{>_navb}}
+
+<section class="banner-area bg_cover">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="banner-content">
+                    <h1 class="text-white">Dados do perfil</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Ads</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="dashboard-area pb-110">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-3 col-lg-4">
+                <div class="left-sidebar-wrapper box-style">
+                    <div class="sidebar-header">
+                        <form method="POST" action="/usuarios/fotoperfiluser/{{usuario._id}}"
+                            enctype="multipart/form-data">
+                            <div class="image">
+                                <img src="/assets/images/users/{{usuario._id}}/perfil-foto/{{usuario._id}}.jpg" alt="">
+                            </div>
+                            <button type="submit" class="btn btn-light"><img src="/assets/images/icons/camera.png">
+                            </button>
+                            <input type="file" name="img_user">
+                            <label for='file2' style="background-color: #852a2a; font-size:x-small; border-radius: 5px; color: #fff; cursor: pointer; margin: 10px; padding: 6px 20px"> Documento Verso</label>
+                                        <input id='file2' style="display: none" type='file'> 
+                                        <input type="text" name="base64TipoDocumento2" id="base64TipoDocumento2">
+                        </form>
+                        <div class="info">
+                            <h3>{{usuario.nome}}</h3>
+                            <p class="mb-30">{{usuario.email}}</p>
+                        </div>
+                    </div>
+                    <div class="sidebar-menu">
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a href="dashboard.html"><i class="lni lni-dashboard"></i>Dashboard</a>
+                                </li>
+                                <li>
+                                    <a href="profile-settings.html" class="active"><i class="lni lni-cog"></i>Dados do
+                                        perfil</a>
+                                </li>
+                                <li>
+                                    <a href="post-ad.html"><i class="lni lni-cog"></i>Post Ad</a>
+                                </li>
+                                <li>
+                                    <a href="my-ads.html"><i class="lni lni-layers"></i>My Ads</a>
+                                </li>
+                                <li>
+                                    <a href="offers.html"><i class="lni lni-envelope"></i>Offers / Message</a>
+                                </li>
+                                <li>
+                                    <a href="payments.html"><i class="lni lni-paypal"></i>Payments</a>
+                                </li>
+                                <li>
+                                    <a href="favorites.html"><i class="lni lni-heart"></i>My Favorites</a>
+                                </li>
+                                <li>
+                                    <a href="privacy.html"><i class="lni lni-star"></i>Privacy Settings</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"><i class="lni lni-exit"></i>Sign Out</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-8">
+                <div class="post-ad-wrapper box-style">
+                    <div class="title">
+                        <h3>Dados do perfil</h3>
+                    </div>
+
+                    <div class="post-ad-form-wrapper">
+                        <form action="/usuarios/salvarperfil" method="POST">
+                            <div class="container">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="cep">Nome</label>
+                                        <input type="text" class="form-control" maxlength="9" 
+                                        value="{{usuario.nome}}" id="nome" name="nome">
+                                        
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cep">Email</label>
+                                        <input type="text" class="form-control" maxlength="9" 
+                                        value="{{usuario.email}}" id="nome" name="nome">
+                                        
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cep">CEP</label>
+                                        <input type="text" class="form-control" maxlength="9"
+                                         value="{{usuario.cep}}" id="cep" name="cep">
+                                        
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="logradouro">Endereco</label>
+                                        <input type="text" class="form-control" id="logradouro"
+                                         value="{{usuario.endereco}}" name="logradouro">
+                                        
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bairro">Bairro</label>
+                                        <input type="text" class="form-control" id="bairro"
+                                         value="{{usuario.bairro}}" name="bairro">
+                                        
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="localidade">Cidade</label>
+                                        <input type="text" class="form-control" id="localidade"
+                                         value="{{usuario.cidade}}" name="localidade" disabled>
+                                       
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="uf">UF</label>
+                                        <input type="text" class="form-control" id="uf"
+                                         value="{{usuario.uf}}" disabled name="uf"> <p>
+                                       
+                                    </div>
+                                </form>
+
+                                <button class="main-btn btn-hover">Salvar</button>
+                        </form>
+                    </div>
+            </section>
+
+
+<footer class="footer-area">
+    <div class="widget-wrapper">
+        <div class="map-img">
+            <img src="assets/images/footer/map-img.svg" alt="">
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-4 col-md-7">
+                    <div class="footer-widget about">
+                        <a href="index.html" class="d-inline-block mb-30">
+                            <img src="assets/images/logo/logo.svg" alt="">
+                        </a>
+                        <p class="text-white mb-25">Buy And Sell Everything From Used Cars To Mobile Phones And
+                            Computers, Search For Property, Jobs And More</p>
+                        <ul class="social">
+                            <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-twitter-filled"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-instagram-filled"></i></a></li>
+                            <li><a href="javascript:void(0)"><i class="lni lni-linkedin-original"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-md-4 order-md-2 order-xl-1 col-sm-6">
+                    <div class="footer-widget">
+                        <h4>Quick Link</h4>
+                        <ul class="link">
+                            <li><a href="javascript:void(0)">Home</a></li>
+                            <li><a href="javascript:void(0)">About</a></li>
+                            <li><a href="javascript:void(0)">Category</a></li>
+                            <li><a href="javascript:void(0)">Product details</a></li>
+                            <li><a href="javascript:void(0)">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-md-4 order-md-3 order-xl-2 col-sm-6">
+                    <div class="footer-widget">
+                        <h4>Support</h4>
+                        <ul class="link">
+                            <li><a href="javascript:void(0)">Live Chat</a></li>
+                            <li><a href="javascript:void(0)">Privacy Policy</a></li>
+                            <li><a href="javascript:void(0)">Purchase</a></li>
+                            <li><a href="javascript:void(0)">Protection</a></li>
+                            <li><a href="javascript:void(0)">Support</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-md-4 order-md-4 order-xl-3 col-sm-6">
+                    <div class="footer-widget">
+                        <h4>Information</h4>
+                        <ul class="link">
+                            <li><a href="javascript:void(0)">Company</a></li>
+                            <li><a href="javascript:void(0)">Contact Info</a></li>
+                            <li><a href="javascript:void(0)">Blog & Articles</a></li>
+                            <li><a href="javascript:void(0)">Terms of Service</a></li>
+                            <li><a href="javascript:void(0)">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-md-5 order-md-1 order-xl-4 col-sm-6">
+                    <div class="footer-widget">
+                        <h4>Contact Us</h4>
+                        <ul>
+                            <li>
+                                <span>Phone:</span>
+                                0345983672937
+                            </li>
+                            <li>
+                                <span>Email:</span>
+                                <a href="/cdn-cgi/l/email-protection" class="__cf_email__"
+                                    data-cfemail="6b12041e19060a02072b0c060a020745080406">[email&#160;protected]</a>
+                            </li>
+                            <li>
+                                <span>Location:</span>
+                                United State of America
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<script>
+//Consulta o CEP
+
+    const cep = document.querySelector("#cep")
+
+    const showData = (result) => {
+        for (const campo in result) {
+            if (document.querySelector("#" + campo)) {
+                document.querySelector("#" + campo).value = result[campo]
+            }
+        }
+    }
+
+    cep.addEventListener("blur", (e) => {
+        let search = cep.value.replace("-", "")
+        const options = {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'default'
+        }
+
+        fetch(`https://viacep.com.br/ws/${search}/json/`, options)
+            .then(response => {
+                response.json()
+                .then(data => showData(data))
+            })
+            .catch(e => console.log('Deu Erro: ' + e, message))
+    })
+
+</script>
