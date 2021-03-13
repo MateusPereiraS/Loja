@@ -21,7 +21,7 @@ const passport = require("passport")
 require("./config/auth")(passport)
 
 const {eAdmin} = require("./helpers/eAdmin")
-let test
+
 
 
 // Configuração
