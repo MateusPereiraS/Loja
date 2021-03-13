@@ -162,7 +162,10 @@ router.post('/salvarperfil', async (req, res) => { // rota para edicao do perfil
             usuario.email = req.body.email,
             usuario.nome = req.body.nome,
             usuario.celular = req.body.celular,
-            usuario.endereco = req.body.endereco
+            usuario.endereco = req.body.logradouro,
+            usuario.bairro = req.body.bairro,
+            usuario.cidade = req.body.localidade,
+            usuario.uf = req.body.uf
             
                 usuario.save().then(() => {
                     console.log('ok')
