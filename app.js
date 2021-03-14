@@ -112,6 +112,11 @@ app.get("/produtos-detalhes", (req, res) => {
     
 })
 
+app.get("/privacy", (req, res)=>{
+res.render("./usuarios/privacy")
+
+})
+
 // Rotas "Ficam em outros arquivos, ocupam menos espaço"
 app.use('/usuarios', usuarios)
 
