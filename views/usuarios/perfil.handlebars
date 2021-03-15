@@ -28,10 +28,10 @@
                         <form method="POST" id="form-upload-image-perfil"
                             action="/usuarios/fotoperfiluser/{{usuario._id}}" enctype="multipart/form-data">
                             <div class="image">
-                                <img src="/assets/images/users/{{usuario._id}}/perfil-foto/{{usuario._id}}.jpg" alt="">
+                                <img src="/assets/images/users/{{usuario._id}}/foto-perfil.jpg" alt="">
                             </div>
                             <label for='file2'
-                                style="background-color: #da4d4d; font-size:x-small; border-radius: 5px; color: #fff; cursor: pointer; margin: 10px; padding: 6px 20px"><img
+                                style="background-color: #599ae6; font-size:x-small; border-radius: 5px; color: #fff; cursor: pointer; margin: 10px; padding: 6px 20px"><img
                                     src="/assets/images/icons/camera.png">
                             </label>
                             <input id='file2' name="img_user" style="display: none" type='file'>
@@ -73,74 +73,105 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-9 col-lg-8">
+            <div class="col-xl-7 col-lg-8">
                 <div class="post-ad-wrapper box-style">
                     <div class="title">
                         <h3>Dados do perfil</h3>
                     </div>
+                    <form action="/usuarios/salvarperfil" method="POST">
+                        <div class="container">
+                            <form>
+                                <input type="hidden" value="{{usuario._id}}" id="id" name="id">
+                                <div class="form-group">
+                                    <label for="cep">Nome</label>
+                                    <input type="text" class="form-control" maxlength="9" value="{{usuario.nome}}"
+                                        id="nome" name="nome">
 
-                    <div class="post-ad-form-wrapper">
-                        <form action="/usuarios/salvarperfil" method="POST">
-                            <div class="container">
-                                <form>
-                                    <input type="hidden" value="{{usuario._id}}" id="id" name="id">
-                                    <div class="form-group">
-                                        <label for="cep">Nome</label>
-                                        <input type="text" class="form-control" maxlength="9" value="{{usuario.nome}}"
-                                            id="nome" name="nome">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cep">Email</label>
+                                    <input type="text" class="form-control" maxlength="9" value="{{usuario.email}}"
+                                        id="email" name="email">
 
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="cep">Email</label>
-                                        <input type="text" class="form-control" maxlength="9" value="{{usuario.email}}"
-                                            id="email" name="email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cep">Celular</label>
+                                    <input type="text" class="form-control" value="{{usuario.celular}}" id="celular"
+                                        name="celular">
 
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="cep">Celular</label>
-                                        <input type="text" class="form-control" value="{{usuario.celular}}" id="celular"
-                                            name="celular">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cep">CEP</label>
+                                    <input type="text" class="form-control" maxlength="9" value="{{usuario.cep}}"
+                                        id="cep" name="cep" required>
 
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="cep">CEP</label>
-                                        <input type="text" class="form-control" maxlength="9" value="{{usuario.cep}}"
-                                            id="cep" name="cep" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="logradouro">Endereco</label>
+                                    <input type="text" class="form-control" id="logradouro" value="{{usuario.endereco}}"
+                                        name="logradouro">
 
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="logradouro">Endereco</label>
-                                        <input type="text" class="form-control" id="logradouro"
-                                            value="{{usuario.endereco}}" name="logradouro">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bairro">Bairro</label>
+                                    <input type="text" class="form-control" id="bairro" value="{{usuario.bairro}}"
+                                        name="bairro">
 
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="bairro">Bairro</label>
-                                        <input type="text" class="form-control" id="bairro" value="{{usuario.bairro}}"
-                                            name="bairro">
+                                </div>
+                                <div class="form-group">
+                                    <label for="localidade">Cidade</label>
+                                    <input type="text" class="form-control" id="localidade" value="{{usuario.cidade}}"
+                                        name="localidade" readonly>
 
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="localidade">Cidade</label>
-                                        <input type="text" class="form-control" id="localidade"
-                                            value="{{usuario.cidade}}" name="localidade" readonly>
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="uf">UF</label>
-                                        <input type="text" class="form-control" id="uf" value="{{usuario.uf}}" name="uf"
-                                            readonly>
-                                        <p>
-
-                                    </div>
-                                </form>
-
-                                <button class="main-btn btn-hover">Salvar</button>
-                        </form>
-                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="uf">UF</label>
+                                    <input type="text" class="form-control" id="uf" value="{{usuario.uf}}" name="uf"
+                                        readonly>
+                                    <p>
+                                </div>
+                            </form>
+                            <button class="main-btn btn-hover">Salvar</button>
+                    </form>
+                    <button type="button" class="main-btn btn-hover"
+                        style="background-color: #599ae6;margin-right:250px;" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
+                        Trocar senha
+                    </button>
+                </div>
+            </div>
 </section>
-
-
+<form name="trocarsenha" action="/usuarios/trocar-senha" method="POST">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Trocar Senha</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <span class="d-inline" id="msgsenha"></span></p>
+                    <input type="hidden" id="valueid" name="valueid" value="{{usuario._id}}">
+                    <div class="col-12">
+                        <div class="single-form mb-20">
+                            <label for="senha" class="mb-2">Senha</label>
+                            <input type="password" onblur="validacaoSenha(this)" name="senha1" id="senha1"
+                                placeholder="****" class="py-2 px-3 mb-0 rounded border">
+                        </div>
+                        <div class="col-12">
+                            <div class="single-form mb-20">
+                                <label for="senha" class="mb-2">Confirmar senha</label>
+                                <input type="password" onblur="validacaoSenha(this)" name="senha2" id="senha2"
+                                    placeholder="****" class="py-2 px-3 mb-0 rounded border">
+                            </div>
+                        </div>
+                        <button type="submit" name="salvar" id="salvar" class="btn btn-primary" disabled>Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 <footer class="footer-area">
     <div class="widget-wrapper">
         <div class="map-img">
@@ -254,4 +285,20 @@
             .catch(e => console.log('Deu Erro: ' + e, message))
     })
 
+</script>
+
+<script>
+    function validacaoSenha(field) {
+
+        senhacont = field.value
+        if ((senha1.value == senha2.value) && (senhacont.length >= 4)) {
+            document.getElementById("msgsenha").innerHTML = "";
+            document.getElementById("salvar").disabled = false;
+        }
+        else {
+            document.getElementById("salvar").disabled = true;
+            document.getElementById("msgsenha").innerHTML = "<font color='red'>Senhas divergentes ou muito curta!</font>";
+
+        }
+    }
 </script>

@@ -11,11 +11,11 @@ const {eAdmin} = require("../helpers/eAdmin")
 const multer  = require('multer')
 const storage = multer.diskStorage({
     destination: (req, file, cb) =>{
-        cb(null, 'public/assets/images/users/'+req.params.idfoto+'/perfil-foto/')
+        cb(null, `public/assets/images/users/${req.params.idfoto}/`)
 
         },
         filename:(req,file,cb)=> {
-            cb(null, req.params.idfoto+".jpg")
+            cb(null, "foto-perfil.jpg")
         }
     })
 const upload = multer({storage})
@@ -69,6 +69,7 @@ router.post("/registro/add",  (req, res) => {
                     email: req.body.email,
                     senha: req.body.senha,
                     eAdmin: 1,
+
                 })
 
                 
@@ -106,6 +107,7 @@ router.get("/login", (req, res) => {
     res.render("usuarios/login")
 })
 
+
 router.post('/fotoperfiluser/:idfoto', upload.single('img_user'),  (req,res ) => {
     req.params.idfoto
     res.redirect("/usuarios/perfil/"+req.params.idfoto)
@@ -133,7 +135,7 @@ router.get("/logout", (req, res) =>{
 
 router.get("/perfil/:id", async (req, res) => { // perfil do usuário
     try {
-        const dir = "public/assets/images/users/"+req.params.id+"/perfil-foto";
+        const dir = 'public/assets/images/users/'+req.params.id;
         if (!fs.existsSync(dir)){
             //Efetua a criação do diretório
             fs.mkdir(dir, (err) => {
@@ -155,6 +157,24 @@ router.get("/perfil/:id", async (req, res) => { // perfil do usuário
 
 
 })
+
+router.post('/trocar-senha', async (req, res) => { // rota para edicao do perfil, apenas o dados
+    Usuario.findById({ _id: req.body.valueid }).then(usuario => {
+        
+            usuario.senha = req.body.senha2
+            
+                usuario.save().then(() => {
+                    console.log('ok')
+                    req.flash('success_msg', 'Dados editado com sucesso')
+                    res.redirect('/usuarios/perfil/'+usuario._id)
+                }).catch(err => {
+                    req.flash('error_msg', 'Error ao editar dados' + err)
+                    res.redirect('/')
+                })
+            
+            })
+        })          
+
 
 router.post('/salvarperfil', async (req, res) => { // rota para edicao do perfil, apenas o dados
     Usuario.findById({ _id: req.body.id }).then(usuario => {

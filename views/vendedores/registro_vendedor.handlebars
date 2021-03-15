@@ -47,10 +47,10 @@
                     {{/if}}
                     {{#each erros}}
                     <div class="alert alert-danger" style="display: inline-block;text-align: center; position:
-                        relactive; width:50%;">{{texto}}</div>
-                    {{else}}
+                        relactive; width:50%;" >{{texto}}</div>
+                        {{else}}
 
-                    {{/each}}
+                        {{/each}}
                     <form name="usuariocad" action="/usuarios/registro/add" method="post">
                         <div class="row">
                             <div class="col-12">
@@ -84,10 +84,11 @@
                                         class="py-2 px-3 mb-0 rounded border">
                                     <span class="d-inline" id="msgsenha"></span></p>
                                 </div>
-                            </div>
+                            </div>                           
                             <div class="col-12">
                                 <div class="single-form mb-30">
-                                    <button class="main-btn btn-hover py-2 px-5 rounded">Cadastrar</button>
+                                    <button class="main-btn btn-hover py-2 px-5 rounded"
+                                        onclick="validacao()">Cadastrar</button>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -96,6 +97,7 @@
                                 </div>
                             </div>
                         </div>
+                        </form>
                 </div>
             </div>
         </div>
@@ -103,7 +105,6 @@
     </div>
     </div>
     </div>
-    </form>
 </section>
 
 
