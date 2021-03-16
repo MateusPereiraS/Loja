@@ -97,7 +97,6 @@ app.get('/', (req, res) => {
 
 app.get("/registro", (req, res) => {
     res.render('./usuarios/registro')
-    
 })
 
 app.get("/login", (req, res) => {
