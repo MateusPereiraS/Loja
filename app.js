@@ -131,8 +131,7 @@ app.use('/usuarios', usuarios)
 // Rotas para administracao
     const admin = require('./routes/admin/dashboard')
 
-        
-        app.use('/usuarios', usuarios)
+        app.use('/admin', admin)
 
 
 
