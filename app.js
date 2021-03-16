@@ -27,7 +27,7 @@ const {eAdmin} = require("./helpers/eAdmin")
 // Configuração
 // Sessão
     app.use(session({
-        secret: "cursodenode",
+        secret: "loja-projeto",
         resave: true,
         saveUninitialized: true
     }))
