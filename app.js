@@ -63,8 +63,8 @@ const {eAdmin} = require("./helpers/eAdmin")
 // Mongoose
     mongoose.Promise = global.Promise;
     // Conexão com a umbler: mongodb://delconsemobi:del10123@mongo_delconsemobi:27017/delconsemobi
-    // Conexão com o localhot: mongodb://localhost/blogapp
-    mongoose.connect("mongodb://localhost/del", {
+    // Conexão com o localhot: mongodb://localhost/loja20
+    mongoose.connect("mongodb://localhost/loja20", {
         useNewUrlParser: true,
         useUnifiedTopology: true
     }).then(() => {
