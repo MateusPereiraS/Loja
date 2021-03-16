@@ -28,11 +28,7 @@ router.get("/registro", (req, res) => {
 router.post("/registro/add",  (req, res) => {
     
     var erros = []
-    var reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
-    if(!req.body.email.search(reg) == 0 ){
-        erros.push({texto: "Dados inválidos! Verifique se todos os campos foram preenchidos corretamente."})
-    }
-
+    
     if(!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null){
         erros.push({texto: "Dados inválidos! Verifique se todos os campos foram preenchidos corretamente."})
     }
@@ -159,11 +155,21 @@ router.get("/perfil/:id", async (req, res) => { // perfil do usuário
 })
 
 router.post('/trocar-senha', async (req, res) => { // rota para edicao do perfil, apenas o dados
-    Usuario.findById({ _id: req.body.valueid }).then(usuario => {
+
         
-            usuario.senha = req.body.senha2
-            
-                usuario.save().then(() => {
+        bcryptjs.genSalt(10, (erro, salt) => {
+            bcryptjs.hash(req.body.senha2, salt, (erro, hash) => {
+                if (erro) {
+                    res.json(erro)
+                }
+
+                let senhaHash = hash
+
+             Usuario.findById({_id: req.body.valueid}).then(usuario => {
+
+                  usuario.senha = senhaHash 
+                              
+            usuario.save().then(() => {
                     console.log('ok')
                     req.flash('success_msg', 'Dados editado com sucesso')
                     res.redirect('/usuarios/perfil/'+usuario._id)
@@ -174,6 +180,8 @@ router.post('/trocar-senha', async (req, res) => { // rota para edicao do perfil
             
             })
         })          
+    })
+})
 
 
 router.post('/salvarperfil', async (req, res) => { // rota para edicao do perfil, apenas o dados

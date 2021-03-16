@@ -17,7 +17,7 @@ const Usuario = new Schema({
     },
     senha: {
         type: String,
-
+        
     },
     cpf: {
         type: String

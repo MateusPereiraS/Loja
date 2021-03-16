@@ -83,6 +83,9 @@ const {eAdmin} = require("./helpers/eAdmin")
 
 // Rotas
 
+app.get("/404", (req, res) =>{
+res.render("404")
+})
 
 app.get("/teste", (req, res) => {
     res.render("teste")

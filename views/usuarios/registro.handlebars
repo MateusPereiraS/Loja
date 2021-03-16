@@ -56,10 +56,9 @@
                             <div class="col-12">
                                 <div class="single-form mb-20">
                                     <label for="email" class="mb-2">Email</label>
-                                    <input type="text" id="email" name="email" placeholder="Email"
+                                    <input type="email" id="email" name="email" placeholder="Email"
                                         onblur="validacaoEmail(this)" maxlength="60" size='65' required
                                         class="py-2 px-3 mb-0 rounded border">
-                                    <span class="d-inline" id="msgemail"></span></p>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -173,27 +172,6 @@
 
 
 </script>
-<!-- Validação de e-mail -->
-<script>
-    function validacaoEmail(field) {
-        usuario = field.value.substring(0, field.value.indexOf("@"));
-        dominio = field.value.substring(field.value.indexOf("@") + 1, field.value.length);
-        if ((usuario.length >= 1) &&
-            (dominio.length >= 3) &&
-            (usuario.search("@") == -1) &&
-            (dominio.search("@") == -1) &&
-            (usuario.search(" ") == -1) &&
-            (dominio.search(" ") == -1) &&
-            (dominio.search(".") != -1) &&
-            (dominio.indexOf(".") >= 1) &&
-            (dominio.lastIndexOf(".") < dominio.length - 1)) {
-        }
-        else {
-            document.getElementById("msgemail").innerHTML = "<font color='red'>Email inválido!</font>";
-        }
-    }
-</script>
-
 <!-- Validação de senha -->
 <script>
     function validacaoSenha(field) {

@@ -1,3 +1,4 @@
+{{#if user}}
 {{>_navb}}
 
 <section class="banner-area bg_cover">
@@ -133,9 +134,7 @@
                             </form>
                             <button class="main-btn btn-hover">Salvar</button>
                     </form>
-                    <button type="button" class="main-btn btn-hover"
-                        style="background-color: #599ae6;margin-right:250px;" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">
+                    <button type="button" data-bs-toggle="modal" class="btn btn-link" data-bs-target="#exampleModal">
                         Trocar senha
                     </button>
                 </div>
@@ -254,7 +253,10 @@
         </div>
     </div>
 </footer>
+{{else}}
 
+<meta http-equiv="refresh" content="1; URL='/404'" />
+{{/if}}
 
 <script>
     //Consulta o CEP
@@ -301,4 +303,6 @@
 
         }
     }
+
+
 </script>
