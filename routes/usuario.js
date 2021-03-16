@@ -149,9 +149,6 @@ router.get("/perfil/:id", async (req, res) => { // perfil do usuário
     } catch (err) {
 
     }
-
-
-
 })
 
 router.post('/trocar-senha', async (req, res) => { // rota para edicao do perfil, apenas o dados

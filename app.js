@@ -5,8 +5,7 @@ const bodyParser = require("body-parser")
 const path = require("path")
 const app = express()
 
-// Rotas "routes" puxando elas
-const usuarios = require("./routes/usuario")
+
 
 //Banco de dados
 const mongoose = require("mongoose")
@@ -106,7 +105,6 @@ app.get("/login", (req, res) => {
 
 app.get("/perfil", (req, res) => {
     res.render('./usuarios/perfil')
-    
 })
 
 app.get("/produtos-detalhes", (req, res) => {
@@ -119,9 +117,22 @@ res.render("./usuarios/privacy")
 
 })
 
+
+/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+// Rotas "routes" puxando elas
+const usuarios = require("./routes/usuario")
+
+
+
 // Rotas "Ficam em outros arquivos, ocupam menos espaço"
 app.use('/usuarios', usuarios)
 
+
+// Rotas para administracao
+    const admin = require('./routes/admin/dashboard')
+
+        
+        app.use('/usuarios', usuarios)
 
 
 
