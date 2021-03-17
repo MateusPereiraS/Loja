@@ -83,7 +83,7 @@ const {eAdmin} = require("./helpers/eAdmin")
 // Rotas
 
 app.get("/404", (req, res) =>{
-res.render("404")
+res.render("./sistema/404")
 })
 
 app.get("/teste", (req, res) => {
@@ -96,6 +96,10 @@ app.get('/', (req, res) => {
 
 app.get("/registro", (req, res) => {
     res.render('./usuarios/registro')
+})
+
+app.get("/registro-vendedor", (req, res) => {
+    res.render('./vendedores/registro-vendedor')
 })
 
 app.get("/login", (req, res) => {
@@ -121,6 +125,7 @@ res.render("./usuarios/privacy")
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 // Rotas "routes" puxando elas
 const usuarios = require("./routes/usuario")
+
 
 
 

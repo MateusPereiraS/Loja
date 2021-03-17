@@ -6,7 +6,7 @@ module.exports = {
         }
 
         req.flash("error_msg", "Você não possui permissão de acesso a essa pagina!")
-        res.redirect("/usuarios/login")
+        res.redirect("/404")
     }
 }
 

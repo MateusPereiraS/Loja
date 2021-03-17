@@ -129,7 +129,7 @@ router.get("/logout", (req, res) =>{
 
 })
 
-router.get("/perfil/:id", async (req, res) => { // perfil do usuário
+router.get("/perfil/:id", eAdmin, async (req, res) => { // perfil do usuário
     try {
         const dir = 'public/assets/images/users/'+req.params.id;
         if (!fs.existsSync(dir)){
@@ -145,6 +145,16 @@ router.get("/perfil/:id", async (req, res) => { // perfil do usuário
         }
         let usuario = await Usuario.findById({ _id: req.params.id }).lean()
         res.render('./usuarios/perfil', { usuario: usuario})
+        //Verifica se não existe
+    } catch (err) {
+
+    }
+})
+
+router.get("/registro-vendedor/:id", async (req, res) => { // perfil do usuário
+    try {
+        let usuario = await Usuario.findById({ _id: req.params.id }).lean()
+        res.render('./vendedores/registro-vendedor', { usuario: usuario})
         //Verifica se não existe
     } catch (err) {
 

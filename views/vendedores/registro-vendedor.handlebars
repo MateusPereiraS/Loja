@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="banner-content">
-                    <h1 class="text-white">Cadastro</h1>
+                    <h1 class="text-white">Vendedores</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -56,8 +56,8 @@
                             <div class="col-12">
                                 <div class="single-form mb-20">
                                     <label for="email" class="mb-2">Email</label>
-                                    <input type="text" id="email" name="email" placeholder="Email"
-                                        onblur="validacaoEmail(this)" maxlength="60" size='65' required
+                                    <input type="email" id="email" name="email" placeholder="Email"
+                                        value="{{usuario.email}}" maxlength="60" size='65' readonly
                                         class="py-2 px-3 mb-0 rounded border">
                                     <span class="d-inline" id="msgemail"></span></p>
                                 </div>
@@ -65,26 +65,38 @@
                             <div class="col-12">
                                 <div class="single-form mb-20">
                                     <label for="name" class="mb-2">Nome</label>
+                                    <input type="text" id="nome" name="nome" value="{{usuario.nome}}" placeholder="Nome" required
+                                        class="py-2 px-3 mb-0 rounded border">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="single-form mb-20">
+                                    <label for="name" class="mb-2">Endereço</label>
                                     <input type="text" id="nome" name="nome" placeholder="Nome" required
                                         class="py-2 px-3 mb-0 rounded border">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="single-form mb-20">
-                                    <label for="senha" class="mb-2">Senha</label>
-                                    <input type="password" id="senha" name="senha" placeholder="****" required
+                                    <label for="name" class="mb-2">CPF/CNPJ</label>
+                                    <input type="text" id="nome" name="nome" placeholder="Nome" required
+                                        class="py-2 px-3 mb-0 rounded border">
+                                </div>
+                            </div>   
+                            <div class="col-12">
+                                <div class="single-form mb-20">
+                                    <label for="name" class="mb-2">Nome da empresa</label>
+                                    <input type="text" id="nome" name="nome" placeholder="Nome" required
                                         class="py-2 px-3 mb-0 rounded border">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="single-form mb-20">
-                                    <label for="senha2" class="mb-2">Confirmar senha</label>
-                                    <input type="password" id="senha2" name="senha2" placeholder="****"
-                                        onblur="validacaoSenha(this)" maxlength="60" size='65' required
+                                    <label for="name" class="mb-2">Razão social*</label>
+                                    <input type="text" id="nome" name="nome" placeholder="Nome" required
                                         class="py-2 px-3 mb-0 rounded border">
-                                    <span class="d-inline" id="msgsenha"></span></p>
                                 </div>
-                            </div>                           
+                            </div>               
                             <div class="col-12">
                                 <div class="single-form mb-30">
                                     <button class="main-btn btn-hover py-2 px-5 rounded"
