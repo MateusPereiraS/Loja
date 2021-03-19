@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const mongoose = require("mongoose")
 require("../models/Usuario")
+const nodemailer = require('nodemailer');
+const mailer = require('../node_modules/mailer')
 const Usuario = mongoose.model("usuarios")
 const bcryptjs = require("bcryptjs")
 const passport = require("passport")
@@ -9,6 +11,8 @@ var file = require('file-system')
 var fs = require('fs')
 const {eAdmin} = require("../helpers/eAdmin")
 const multer  = require('multer')
+const crypto = require('crypto')
+const { getMaxListeners } = require('process')
 const storage = multer.diskStorage({
     destination: (req, file, cb) =>{
         cb(null, `public/assets/images/users/${req.params.idfoto}/`)
@@ -65,19 +69,9 @@ router.post("/registro/add",  (req, res) => {
                     email: req.body.email,
                     senha: req.body.senha,
                     eAdmin: 1,
+                    eTipo: 1,
 
                 })
-
-                
-                bcryptjs.genSalt(10, (erro, salt) => {
-                    bcryptjs.hash(novoUsuario.senha, salt, (erro, hash) => {
-                        if(erro){
-                            req.flash("error_msg", "Houve um erro durante o salvamento do usuário")
-                            res.redirect("/")
-                        }
-
-                        novoUsuario.senha = hash
-
                         novoUsuario.save().then(() => {
                             req.flash("success_msg", "Usuario criado com sucesso!")
                             res.redirect("/")
@@ -85,10 +79,6 @@ router.post("/registro/add",  (req, res) => {
                             req.flash("error_msg", "Houve um erro ao criar o usuário")
                             res.redirect("/usuarios/registro")
                         })
-
-                    })
-                })
-
             }
         }).catch((err) => {
             req.flash("error_msg", "Houve um erro interno")
@@ -151,30 +141,79 @@ router.get("/perfil/:id", eAdmin, async (req, res) => { // perfil do usuário
     }
 })
 
-router.get("/registro-vendedor/:id", async (req, res) => { // perfil do usuário
+router.get("/perfil-vendedor/:idvendedor", eAdmin, async (req, res) => { // perfil do usuário
     try {
-        let usuario = await Usuario.findById({ _id: req.params.id }).lean()
-        res.render('./vendedores/registro-vendedor', { usuario: usuario})
+        let usuario = await Usuario.findById({ _id: req.params.idvendedor }).lean()
+        res.render('./vendedores/perfil-vendedor', { usuario: usuario})
         //Verifica se não existe
     } catch (err) {
 
     }
 })
 
-router.post('/trocar-senha', async (req, res) => { // rota para edicao do perfil, apenas o dados
+router.post('/reset-senha', async (req,res)=>{
+    try{
+const user = await Usuario.findOne({email: req.body.emailenviado})
+.select('+senhaResetToken senhaResetExpires')
+const now = new Date();
+if(req.body.token !== user.senhaResetToken || now > user.senhaResetExpires){
+req.flash("error_msg", "Chave inválida!")
+}else{
+user.senha = req.body.senhanova
+console.log('ok')
+user.save()
+    }
+    }catch(err){
 
+    }
+})
+
+router.post('/mail-senha', async(req, res) =>{
+
+try{
+    const user = await Usuario.findOne({email:req.body.emailtroca});
+
+    if(!user)
+    req.flash("error_msg", "Houve um erro interno")
+
+    const token = crypto.randomBytes(20).toString('hex')
+
+    const now = new Date();
+    now.setHours(now.getHours() + 1)
+
+    await Usuario.findByIdAndUpdate(user.id, {
+        '$set':{
+            senhaResetToken: token,
+            senhaResetExpires: now,
+        }
+    })
+
+    mailer.sendMail({
+        to: req.body.emailtroca,
+        from: 'mateusfpsgamex@gmail.com',
+        template: '/forgot_password',
+        context: { token },
+
+
+    },(err) => {
+        if(err)
+        return console.log(err)
         
-        bcryptjs.genSalt(10, (erro, salt) => {
-            bcryptjs.hash(req.body.senha2, salt, (erro, hash) => {
-                if (erro) {
-                    res.json(erro)
-                }
+    })
+console.log(token, now)
 
-                let senhaHash = hash
+} catch(err){
+    console.log(err)
+res.render('/404')
+}
+})
 
-             Usuario.findById({_id: req.body.valueid}).then(usuario => {
 
-                  usuario.senha = senhaHash 
+router.post('/trocar-senha', async (req, res) => { // rota para edicao do perfil, apenas o dados
+    
+        Usuario.findById({_id: req.body.valueid}).then(usuario => {
+
+            usuario.senha = req.body.senha2 
                               
             usuario.save().then(() => {
                     console.log('ok')
@@ -183,12 +222,13 @@ router.post('/trocar-senha', async (req, res) => { // rota para edicao do perfil
                 }).catch(err => {
                     req.flash('error_msg', 'Error ao editar dados' + err)
                     res.redirect('/')
+                    console.log(err)
                 })
             
             })
         })          
-    })
-})
+
+
 
 
 router.post('/salvarperfil', async (req, res) => { // rota para edicao do perfil, apenas o dados
@@ -203,6 +243,7 @@ router.post('/salvarperfil', async (req, res) => { // rota para edicao do perfil
             usuario.cidade = req.body.localidade,
             usuario.uf = req.body.uf
             
+            
                 usuario.save().then(() => {
                     console.log('ok')
                     req.flash('success_msg', 'Dados editado com sucesso')
@@ -213,6 +254,31 @@ router.post('/salvarperfil', async (req, res) => { // rota para edicao do perfil
                 })
             
             })
-        })          
+        })    
+        
+        router.post('/ativar-vendedor', async (req, res) => { // rota para edicao do perfil, apenas o dados
+            Usuario.findById({ _id: req.body.idvendedor }).then(usuario => {
+
+                usuario.cpf_cnpj = req.body.cpfcnpj,
+                usuario.nomeemp = req.body.nomeempresa,
+                usuario.razaosoc = req.body.razaosocial,
+                usuario.telefoneemp = req.body.telcomercial, 
+                usuario.celularemp = req.body.telcelular,
+                usuario.eTipo = 2
+
+                        usuario.save().then(() => {
+                            console.log('ok')
+                            req.flash('success_msg', 'Cadastro alterado para vendedor')
+                            res.redirect('/')
+                        }).catch(err => {
+                            req.flash('error_msg', 'Error ao editar dados' + err)
+                            res.redirect('/')
+                        })
+                    
+                    })
+                }) 
+
+  
+        
 
 module.exports = router
