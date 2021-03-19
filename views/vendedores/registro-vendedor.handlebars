@@ -47,69 +47,53 @@
                     {{/if}}
                     {{#each erros}}
                     <div class="alert alert-danger" style="display: inline-block;text-align: center; position:
-                        relactive; width:50%;" >{{texto}}</div>
-                        {{else}}
+                        relactive; width:50%;">{{texto}}</div>
+                    {{else}}
 
-                        {{/each}}
-                    <form name="usuariocad" action="/usuarios/registro/add" method="post">
+                    {{/each}}
+                    <form action="/usuarios/ativar-vendedor" method="post">
+                    <input type="hidden" id="idvendedor" name="idvendedor" value="{{usuario._id}}">
                         <div class="row">
-                            <div class="col-12">
                                 <div class="single-form mb-20">
-                                    <label for="email" class="mb-2">Email</label>
-                                    <input type="email" id="email" name="email" placeholder="Email"
-                                        value="{{usuario.email}}" maxlength="60" size='65' readonly
-                                        class="py-2 px-3 mb-0 rounded border">
-                                    <span class="d-inline" id="msgemail"></span></p>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="single-form mb-20">
-                                    <label for="name" class="mb-2">Nome</label>
-                                    <input type="text" id="nome" name="nome" value="{{usuario.nome}}" placeholder="Nome" required
+                                    <label for="name" class="mb-2">CPF/CNPJ*</label>
+                                    <input type="text" id="cpfcnpj" name="cpfcnpj" placeholder="CPF/CNPJ" required
                                         class="py-2 px-3 mb-0 rounded border">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="single-form mb-20">
-                                    <label for="name" class="mb-2">Endereço</label>
-                                    <input type="text" id="nome" name="nome" placeholder="Nome" required
+                                    <input type="hidden" id="nomeempresa" name="nomeempresa" placeholder="Nome da empresa *" required
                                         class="py-2 px-3 mb-0 rounded border">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="single-form mb-20">
-                                    <label for="name" class="mb-2">CPF/CNPJ</label>
-                                    <input type="text" id="nome" name="nome" placeholder="Nome" required
-                                        class="py-2 px-3 mb-0 rounded border">
-                                </div>
-                            </div>   
-                            <div class="col-12">
-                                <div class="single-form mb-20">
-                                    <label for="name" class="mb-2">Nome da empresa</label>
-                                    <input type="text" id="nome" name="nome" placeholder="Nome" required
+                                    <input type="hidden" id="razaosocial" name="razaosocial" placeholder="Razão social *" required
                                         class="py-2 px-3 mb-0 rounded border">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="single-form mb-20">
-                                    <label for="name" class="mb-2">Razão social*</label>
-                                    <input type="text" id="nome" name="nome" placeholder="Nome" required
+                                    <label for="name" class="mb-2">Telefone comercial*</label>
+                                    <input type="text" id="telcomercial" name="telcomercial" placeholder="(00) 0000-0000" required
                                         class="py-2 px-3 mb-0 rounded border">
                                 </div>
-                            </div>               
+                            </div>
+                            <div class="col-12">
+                                <div class="single-form mb-20">
+                                    <label for="name" class="mb-2">Telefone celular*</label>
+                                    <input type="text" id="telcelular" name="telcelular" placeholder="(00) 00000-0000" required
+                                        class="py-2 px-3 mb-0 rounded border">
+                                </div>
+                            </div>
                             <div class="col-12">
                                 <div class="single-form mb-30">
                                     <button class="main-btn btn-hover py-2 px-5 rounded"
                                         onclick="validacao()">Cadastrar</button>
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <div class="single-form mb-30">
-                                    <p>Possui uma conta? <a href="login">Login</a></p>
-                                </div>
-                            </div>
                         </div>
-                        </form>
+                    </form>
                 </div>
             </div>
         </div>
@@ -218,6 +202,40 @@
 
         }
     }
+</script>
+
+<script>
+    //Mascara CPF/CNPJ
+    $("#cpfcnpj").keydown(function () {
+        try {
+            $("#cpfcnpj").unmask();
+        } catch (e) { }
+
+        var tamanho = $("#cpfcnpj").val().length;
+
+        if (tamanho < 11) {
+            $("#cpfcnpj").mask("999.999.999-99");
+            document.getElementById("nomeempresa").type = "hidden";
+            document.getElementById("razaosocial").type = "hidden";
+           
+        } else {
+            $("#cpfcnpj").mask("99.999.999/9999-99");
+            document.getElementById("nomeempresa").type = "text";
+            document.getElementById("razaosocial").type = "text";
+           
+        }
+
+        // ajustando foco
+        var elem = this;
+        setTimeout(function () {
+            // mudo a posição do seletor
+            elem.selectionStart = elem.selectionEnd = 10000;
+        }, 0);
+        // reaplico o valor para mudar o foco
+        var currentValue = $(this).val();
+        $(this).val('');
+        $(this).val(currentValue);
+    });
 </script>
 
 {{>_rodape}}

@@ -1,4 +1,5 @@
 // Carregando módulos
+const nodemailer = require('nodemailer');
 const express = require('express')
 const handlebars = require('express-handlebars')
 const bodyParser = require("body-parser")
@@ -15,7 +16,6 @@ const flash = require("connect-flash")
 //Colections
 require("./models/Usuario")
 const Usuario = mongoose.model("usuarios")
-
 const passport = require("passport")
 require("./config/auth")(passport)
 
@@ -109,6 +109,10 @@ app.get("/login", (req, res) => {
 
 app.get("/perfil", (req, res) => {
     res.render('./usuarios/perfil')
+})
+
+app.get("/perfil-vendedor", (req, res) => {
+    res.render('./vendedores/perfil-vendedor')
 })
 
 app.get("/produtos-detalhes", (req, res) => {

@@ -50,23 +50,33 @@
                         <nav>
                             <ul>
                                 <li>
-                                    <a href="{{usuario._id}}" class="active"><i class="lni lni-cog"></i>Dados do
-                                        perfil</a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="lni lni-envelope"></i>Mensagens/Ofertas</a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="lni lni-paypal"></i>Minhas compras</a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="lni lni-heart"></i>Favoritos</a>
-                                </li>
-                                <li>
-                                    <a href="/privacy"><i class="lni lni-star"></i>Privacy Settings</a>
-                                </li>
-                                <li>
-                                    <a href="/usuarios/logout"><i class="lni lni-exit"></i>Sign Out</a>
+                                        <a href="dashboard.html" id="dashboard"><i class="lni lni-dashboard"></i>Dashboard</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{usuario._id}}" class="active"><i
+                                                class="lni lni-cog"></i>Perfil de usuário</a>
+                                    </li>
+                                    <li>
+                                        <a href="/usuarios/perfil-vendedor/{{usuario._id}}" id="perfilvendedor"><i class="lni lni-cog"></i>Perfil do vendedor</a>
+                                    </li>
+                                    <li>
+                                        <a href="my-ads.html" id="myads"><i class="lni lni-layers"></i>My Ads</a>
+                                    </li>
+                                    <li>
+                                        <a href="offers.html"><i class="lni lni-envelope"></i>Ofertas/Mensagens</a>
+                                    </li>
+                                    <li>
+                                        <a href="payments.html"><i class="lni lni-paypal"></i>Pagamentos</a>
+                                    </li>
+                                    <li>
+                                        <a href="favorites.html"><i class="lni lni-heart"></i>Favoritos</a>
+                                    </li>
+                                    <li>
+                                        <a href="/privacy"><i class="lni lni-star"></i>Configurações</a>
+                                    </li>
+                                    <li>
+                                        <a href="/usuarios/logout"><i class="lni lni-exit"></i>Sair</a>
+                                    </li>
                                 </li>
                             </ul>
                         </nav>
@@ -307,5 +317,10 @@
         }
     }
 
+if( {{usuario.eTipo}} == 1 ){
+	$("#dashboard").hide()
+    $("#perfilvendedor").hide()
+    $("#myads").hide()
+}
 
 </script>

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const bcrypt = require("bcryptjs")
 const Schema = mongoose.Schema;
 
 const Usuario = new Schema({
@@ -17,9 +17,16 @@ const Usuario = new Schema({
     },
     senha: {
         type: String,
-        
     },
-    cpf: {
+    senhaResetToken: {
+        type: String,
+        select: false,
+    },
+    senhaResetExpires: {
+        type: Date,
+        select: false,
+    },
+    cpf_cnpj: {
         type: String
     },
     celular: {
@@ -40,10 +47,30 @@ const Usuario = new Schema({
     bairro: {
         type: String
     },
-    numero: {
+    nomeemp: {
         type: String
     },
+    razaosoc: {
+        type: String
+    },
+    telefoneemp: {
+        type: String
+    },
+    celularemp: {
+        type: String
+    },
+    eTipo: {
+        type: Number
+    },
 },
-{ timestamps: true})
+    { timestamps: true })
+
+   
+Usuario.pre('save', async function(next) {
+    const hash = await bcrypt.hash(this.senha, 10)
+    this.senha = hash
+    next()
+  })
+
 
 mongoose.model("usuarios", Usuario)
