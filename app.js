@@ -111,10 +111,6 @@ app.get("/perfil", (req, res) => {
     res.render('./usuarios/perfil')
 })
 
-app.get("/perfil-vendedor", (req, res) => {
-    res.render('./vendedores/perfil-vendedor')
-})
-
 app.get("/produtos-detalhes", (req, res) => {
     res.render('produtos-detalhes')
     

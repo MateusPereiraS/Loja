@@ -85,61 +85,64 @@
         </div>
     </div>
     </form>
+
 </section>
-<form action="/usuarios/mail-senha/" method="POST">
-    <div class="modal fade" id="trocarsenha" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Trocar Senha</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
+
+<div class="modal fade" id="trocarsenha" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Trocar Senha</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-enviar-confirmacao" action="/usuarios/mail-senha/" method="POST">
                     <div class="col-12">
                         <div class="single-form mb-20">
                             <label for="senha" class="mb-2">Digite seu email:</label>
                             <input type="email" name="emailtroca" id="emailtroca" placeholder="exemplo@email.com"
                                 class="py-2 px-3 mb-0 rounded border">
                         </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#confirmartoken" data-itemid="{{emailtroca}}" onclick="passarvaloremail(this)">Salvar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
+                        <button type="submit" id="enviaemail" class="btn btn-primary"
+                            onclick="trocarmodal()">Enviar</button>
 
-<form action="/usuarios/reset-senha" method="POST">
-    <div class="modal fade" id="confirmartoken" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Trocar Senha</h5>
-                    <input type="text" value="mateustrtr@hotmail.com" id="emailenviado" name="emailenviado">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
+                </form>
+                <form action="/usuarios/reset-senha" method="POST">
                     <div class="col-12">
                         <div class="single-form mb-20">
-                            <label for="senha" class="mb-2">Token:</label>
-                            <input type="text" name="token" id="token" placeholder="Token enviado"
-                                class="py-2 px-3 mb-0 rounded border">
+                            <input type="text" name="token" id="token" placeholder="Chave recebida"
+                                class="py-2 px-3 mb-0 rounded border" hidden>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="single-form mb-20">
-                            <label for="senha" class="mb-2">Nova senha:</label>
-                            <input type="password" name="senhanova" id="senhanova" placeholder="****"
-                                class="py-2 px-3 mb-0 rounded border">
+                            <input type="password" name="senhanova" id="senhanova" placeholder="Nova senha"
+                                class="py-2 px-3 mb-0 rounded border" hidden>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary" data-bs-toggle="modal">Salvar</button>
-                </div>
+
+                    <button id="trocasenha" class="btn btn-primary" hidden>Salvar</button>
+                </form>
             </div>
         </div>
     </div>
-</form>
+</div>
+
+<script>
+    $('#form-enviar-confirmacao').submit(() => {
+        let emailtroca = $('#emailtroca').val()
+        event.preventDefault()
+        jQuery.ajax({
+            type: "POST",
+            url: '/usuarios/mail-senha',
+            data: { emailtroca: emailtroca },
+            success: function (response) {          
+              alert(response)
+            }
+        });
+    })
+
+</script>
 
 <section class="subscribe-area">
     <div class="container">
@@ -288,8 +291,16 @@
         </div>
     </div>
 </footer>
+</div>
 
 
+<script>
+    var capturando = "";
+    function trocarmodal() {
+        capturando = document.getElementById('emailtroca').value
+        document.getElementById('emailrecebido').innerHTML = capturando;
+    }
 
+</script>
 
 {{>_rodape}}
