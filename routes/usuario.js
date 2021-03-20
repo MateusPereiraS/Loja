@@ -165,7 +165,7 @@ router.get("/perfil-vendedor/:idvendedor", eAdmin, async (req, res) => { // perf
 
 router.post('/reset-senha', async (req, res) => {
     try {
-        const user = await Usuario.findOne({ email: req.body.emailtroca })
+        const user = await Usuario.findOne({ email: req.body.emailrecebido })
             .select('+senhaResetToken senhaResetExpires')
         const now = new Date();
         if (req.body.token !== user.senhaResetToken || now > user.senhaResetExpires) {
@@ -174,7 +174,7 @@ router.post('/reset-senha', async (req, res) => {
             user.senha = req.body.senhanova
             console.log('ok')
             user.save().then(() => {
-
+res.redirect('back')
             }).catch((erro) => {
                 console.log(erro)
             })

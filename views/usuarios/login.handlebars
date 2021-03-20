@@ -105,23 +105,24 @@
                         </div>
                         <button type="submit" id="enviaemail" class="btn btn-primary"
                             onclick="trocarmodal()">Enviar</button>
-
+                    </div>
                 </form>
-                <form action="/usuarios/reset-senha" method="POST">
+                <form id="form-confirma-token" action="/usuarios/reset-senha" method="POST">
+                <input type="hidden" id="receberemail" name="receberemail">
                     <div class="col-12">
                         <div class="single-form mb-20">
                             <input type="text" name="token" id="token" placeholder="Chave recebida"
-                                class="py-2 px-3 mb-0 rounded border" hidden>
+                                class="py-2 px-3 mb-0 rounded border">
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="single-form mb-20">
                             <input type="password" name="senhanova" id="senhanova" placeholder="Nova senha"
-                                class="py-2 px-3 mb-0 rounded border" hidden>
+                                class="py-2 px-3 mb-0 rounded border">
                         </div>
                     </div>
 
-                    <button id="trocasenha" class="btn btn-primary" hidden>Salvar</button>
+                    <button id="trocasenha" class="btn btn-primary">Salvar</button>
                 </form>
             </div>
         </div>
@@ -129,6 +130,7 @@
 </div>
 
 <script>
+    $('#form-confirma-token').hide()
     $('#form-enviar-confirmacao').submit(() => {
         let emailtroca = $('#emailtroca').val()
         event.preventDefault()
@@ -136,8 +138,12 @@
             type: "POST",
             url: '/usuarios/mail-senha',
             data: { emailtroca: emailtroca },
-            success: function (response) {          
-              alert(response)
+            success: function (response) {
+                if (response.responseid) {
+                    $('#receberemail').val(emailtroca)
+                    $('#form-confirma-token').show()
+                    $('#form-enviar-confirmacao').hide()            
+                }
             }
         });
     })
