@@ -169,7 +169,7 @@ router.post('/reset-senha', async (req, res) => {
             .select('+senhaResetToken senhaResetExpires')
         const now = new Date();
         if (req.body.token !== user.senhaResetToken || now > user.senhaResetExpires) {
-            req.flash("error_msg", "Chave inválida!")
+            req.flash("error_msg", "Chave inválida2!")
         } else {
             user.senha = req.body.senhanova
             console.log('ok')
