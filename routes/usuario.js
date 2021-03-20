@@ -194,33 +194,37 @@ router.post('/mail-senha', async (req, res) => {
 
         if (!user){
             res.send({responseid:100})
+        }else{
+            const token = crypto.randomBytes(5).toString('hex')
+            const now = new Date();
+            now.setHours(now.getHours() + 1)
+
+            Usuario.findByIdAndUpdate(user._id, {
+                '$set': {
+                    senhaResetToken: token,
+                    senhaResetExpires: now,
+                }
+            }).then(() => {
+
+                mailer.sendMail({
+                    to: req.body.emailtroca,
+                    from: 'mateusfpsgamex@gmail.com',
+                    template: '/forgot_password',
+                    context: { token },
+    
+                }, (err) => {
+                    if (err)
+                    res.send({responseid:100})
+
+                })
+                
+                console.log(token, now)
+                res.send({responseid:200})
+
+            }).catch(err => {
+                res.send({responseid:100})
+            })
         }
-        const token = crypto.randomBytes(5).toString('hex')
-
-        const now = new Date();
-        now.setHours(now.getHours() + 1)
-
-        await Usuario.findByIdAndUpdate(user.id, {
-            '$set': {
-                senhaResetToken: token,
-                senhaResetExpires: now,
-            }
-        })
-
-        mailer.sendMail({
-            to: req.body.emailtroca,
-            from: 'mateusfpsgamex@gmail.com',
-            template: '/forgot_password',
-            context: { token },
-
-
-        }, (err) => {
-            if (err)
-            res.send({responseid:100})
-
-        })
-        console.log(token, now)
-        res.send({responseid:200})
 
     } catch (err) {
         console.log(err)
