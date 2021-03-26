@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="banner-content">
-                    <h1 class="text-white">Dados do perfil</h1>
+                    <h1 class="text-white">Loja virtual</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index">Home</a></li>
@@ -17,249 +17,366 @@
         </div>
     </div>
 </section>
+<header class="dashboard-area pb-110">
+    <div class="container-md rounded border"
+        style="background-color: white;width: 100%;height: 400px;background-image: url('img_flowers.jpg');
+            background-size: 100% 100%; background-image: url(/assets/images/users/{{usuario._id}}/banner-perfil.jpg);">
+        <form method="POST" id="form-upload-image03-perfil"
+            action="/usuarios/fotoperfiluser03/{{usuario._id}}/banner-perfil.jpg" enctype="multipart/form-data">
+            <label for='filevend2'
+                style="background-color: #000000; font-size:x-small; border-radius: 5px; color: #fff; cursor: pointer; margin: 10px; padding: 6px 20px"><img
+                    src="/assets/images/icons/camera.png">
+            </label>
+            <input id='filevend2' name="img_user" style="display: none" type='file'>
+        </form>
+        <script>
+            $('#filevend2').change(() => {
+                $('#form-upload-image03-perfil').submit()
+            })
+        </script>
 
+        <form method="POST" id="form-upload-image02-perfil"
+            action="/usuarios/fotoperfiluser02/{{usuario._id}}/logo-perfil.jpg" enctype="multipart/form-data">
+            <center>
+                <div class="image">
+                    <br>
+                    <img src="/assets/images/users/{{usuario._id}}/logo-perfil.jpg" class="rounded-circle" style="width: 150px;height:150px;background-repeat: no-repeat;
+                        background-size: contain;">
+                </div>
+                <label for='filevend'
+                    style="background-color: #000000; font-size:x-small; border-radius: 5px; color: #fff; cursor: pointer; margin: 10px; padding: 6px 20px"><img
+                        src="/assets/images/icons/camera.png">
+                </label>
+                <input id='filevend' name="img_user" style="display: none" type='file'>
+        </form>
+        <script>
+            $('#filevend').change(() => {
+                $('#form-upload-image02-perfil').submit()
+            })
+        </script>
+        <div class="info">
+            <h3 style="color: #000000;">{{usuario.nomeloja}}</h3>
+            <p class="mb-30" style="color: #000000;">{{usuario.email_loja}}</p>
+        </div>
+    </div>
+    </center>
+</header>
 <section class="dashboard-area pb-110">
     <div class="container">
         <div class="row">
             <div class="col-xl-3 col-lg-4">
                 <div class="left-sidebar-wrapper box-style">
-                    <div class="sidebar-header">
-                        <form method="POST" id="form-upload-image-perfil"
-                            action="/usuarios/fotoperfiluser/{{usuario._id}}" enctype="multipart/form-data">
-                            <div class="image">
-                                <img src="/assets/images/users/{{usuario._id}}/perfil-foto/foto-vendedor.jpg" alt="">
-                            </div>
-                            <label for='file2'
-                                style="background-color: #da4d4d; font-size:x-small; border-radius: 5px; color: #fff; cursor: pointer; margin: 10px; padding: 6px 20px"><img
-                                    src="/assets/images/icons/camera.png">
-                            </label>
-                            <input id='file2' name="img_user" style="display: none" type='file'>
-                        </form>
-                        <script>
-                            $('#file2').change(() => {
-                                $('#form-upload-image-perfil').submit()
-                            })
-                        </script>
-                        <div class="info">
-                            <h3>{{usuario.nome}}</h3>
-                            <p class="mb-30">{{usuario.email}}</p>
-                        </div>
-                    </div>
                     <div class="sidebar-menu">
                         <nav>
                             <ul>
                                 <li>
-                                    <a href="dashboard.html"><i class="lni lni-dashboard"></i>Dashboard</a>
+                                    <a href="dashboard.html" id="dashboard"><i
+                                            class="lni lni-dashboard"></i>Dashboard</a>
                                 </li>
                                 <li>
-                                    <a href="profile-settings.html" class="active"><i class="lni lni-cog"></i>Dados do
-                                        perfil</a>
+                                    <a href="/usuarios/perfil/{{usuario._id}}"><i class="lni lni-cog"></i>Dados do
+                                        usuário</a>
                                 </li>
                                 <li>
-                                    <a href="post-ad.html"><i class="lni lni-cog"></i>Post Ad</a>
+                                    <a href="/usuarios/perfil-vendedor/{{usuario._id}}" id="lojavirtual"><i
+                                            class="lni lni-cog" class="active"></i>Loja virtual</a>
                                 </li>
                                 <li>
-                                    <a href="my-ads.html"><i class="lni lni-layers"></i>My Ads</a>
+                                    <a href="my-ads.html" id="myads"><i class="lni lni-layers"></i>Meus produtos</a>
                                 </li>
                                 <li>
-                                    <a href="offers.html"><i class="lni lni-envelope"></i>Offers / Message</a>
+                                    <a href="offers.html"><i class="lni lni-envelope"></i>Ofertas/Mensagens</a>
                                 </li>
                                 <li>
-                                    <a href="payments.html"><i class="lni lni-paypal"></i>Payments</a>
+                                    <a href="payments.html"><i class="lni lni-paypal"></i>Pagamentos</a>
                                 </li>
                                 <li>
-                                    <a href="favorites.html"><i class="lni lni-heart"></i>My Favorites</a>
+                                    <a href="favorites.html"><i class="lni lni-heart"></i>Favoritos</a>
                                 </li>
                                 <li>
-                                    <a href="privacy.html"><i class="lni lni-star"></i>Privacy Settings</a>
+                                    <a href="/privacy"><i class="lni lni-star"></i>Configurações</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)"><i class="lni lni-exit"></i>Sign Out</a>
+                                    <a href="/usuarios/logout"><i class="lni lni-exit"></i>Sair</a>
+                                </li>
                                 </li>
                             </ul>
                         </nav>
                     </div>
                 </div>
             </div>
+
             <div class="col-xl-9 col-lg-8">
                 <div class="post-ad-wrapper box-style">
                     <div class="title">
-                        <h3>Dados do perfil</h3>
+                        <h3>
+                            <center>Informações da loja</center>
+                        </h3></br>
                     </div>
-
                     <div class="post-ad-form-wrapper">
-                        <form action="/usuarios/salvarperfil" method="POST">
+                        <form action="/usuarios/salvarperfil-loja" method="POST">
                             <div class="container">
                                 <form>
                                     <input type="hidden" value="{{usuario._id}}" id="id" name="id">
-                                    <div class="form-group">
-                                        <label for="cep">Nome</label>
-                                        <input type="text" class="form-control" maxlength="9" value="{{usuario.nome}}"
-                                            id="nome" name="nome">
-
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" value="{{usuario.nomeloja}}"
+                                            id="nomeloja" name="nomeloja" placeholder="name@example.com">
+                                        <label for="nomeloja">Nome da loja</label>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="cep">Email</label>
-                                        <input type="text" class="form-control" maxlength="9" value="{{usuario.email}}"
-                                            id="email" name="email">
 
+                                    <div class="title">
+                                        <center><Label>Pessoa</Label></center>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="cep">Celular</label>
-                                        <input type="text" class="form-control" value="{{usuario.celular}}" id="celular"
-                                            name="celular">
 
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="cep">CEP</label>
-                                        <input type="text" class="form-control" maxlength="9" value="{{usuario.cep}}"
-                                            id="cep" name="cep" required>
+                                    <center>
+                                        <div class="radio-group">
+                                            <input id="fisica" class="radio-group__option" type="radio" name="opt">
+                                            <label class="radio-group__label" for="fisica">
+                                                Física
+                                            </label>
 
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="logradouro">Endereco</label>
-                                        <input type="text" class="form-control" id="logradouro"
-                                            value="{{usuario.endereco}}" name="logradouro">
+                                            <input id="juridica" class="radio-group__option" type="radio" name="opt"
+                                                value="cnpj" checked="checked">
+                                            <label class="radio-group__label" for="juridica">
+                                                Jurídica
+                                            </label>
+                                        </div>
+                                        <br />
+                                    </center>
+                                    <div class="camposExtrascnpj">
 
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="bairro">Bairro</label>
-                                        <input type="text" class="form-control" id="bairro" value="{{usuario.bairro}}"
-                                            name="bairro">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="rzsocial" name="rzsocial"
+                                                value="{{usuario.rzsocial}}" placeholder="name@example.com">
+                                            <label for="rzsocial">Razão social</label>
+                                        </div>
 
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="localidade">Cidade</label>
-                                        <input type="text" class="form-control" id="localidade"
-                                            value="{{usuario.cidade}}" name="localidade" readonly>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="cnpj" name="cnpj"
+                                                value="{{usuario.cnpj}}" placeholder="name@example.com">
+                                            <label for="cnpj">CNPJ</label>
 
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="uf">UF</label>
-                                        <input type="text" class="form-control" id="uf" value="{{usuario.uf}}" name="uf"
-                                            readonly>
-                                        <p>
 
+
+                                    <div class="camposExtrascpf">
+
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="nomecompleto"
+                                                name="nomecompleto" value="{{usuario.nome}}"
+                                                placeholder="name@example.com">
+                                            <label for="nomecompleto">Nome completo</label>
+                                        </div>
+
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="cpf" name="cpf"
+                                                value="{{usuario.cpf}}" placeholder="name@example.com">
+                                            <label for="floatingInput">CPF</label>
+
+                                        </div>
                                     </div>
+
+                                    <div class="title">
+                                        <h5 style="color: rgb(104, 104, 104);">
+                                            <center>Contato e localização</center>
+                                        </h5></br>
+                                    </div>
+
+                                    <center>
+                                        <div class="row g-2">
+                                            <div class="col-md">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="telcomercial"
+                                                        name="telcomercial" value="{{usuario.telefone_loja}}" placeholder="0">
+                                                    <label for="telcomercial">Telefone</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="celcomercial"
+                                                        name="celcomercial" value="{{usuario.celular_loja}}" placeholder="0">
+                                                    <label for="celcomercial">Celular</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md">
+                                                <div class="form-floating">
+                                                    <input type="email" class="form-control" id="email" name="email"
+                                                      value="{{usuario.email_loja}}"  placeholder="0">
+                                                    <label for="email">Email</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row g-2">
+                                            <div class="col-md-3">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="cep" name="cep"
+                                                       value="{{usuario.cep}}" placeholder="0">
+                                                    <label for="cep">CEP</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="logradouro"
+                                                        name="logradouro" value="{{usuario.endereco}}" placeholder="0">
+                                                    <label for="logradouro">Endereço</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-floating">
+                                                    <input type="number" class="form-control" id="numero" name="numero"
+                                                       value="{{usuario.numero}}" placeholder="0">
+                                                    <label for="numero">N°, ap, lote</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row g-2">
+                                            <div class="col-md">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="bairro" name="bairro"
+                                                       value="{{usuario.bairro}}" placeholder="0">
+                                                    <label for="telcomercial">Bairro</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="localidade"
+                                                        name="localidade" value="{{usuario.cidade}}" placeholder="0">
+                                                    <label for="celcomercial">Cidade</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control" id="uf" name="uf"
+                                                       value="{{usuario.uf}}" placeholder="0">
+                                                    <label for="celcomercial">UF</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </center>
+
+                                    <div class="title">
+                                        <h5 style="color: rgb(104, 104, 104);">
+                                            <center>Redes sociais</center>
+                                        </h5></br>
+                                    </div>
+                                    <div class="row g-2">
+                                        <div class="col-md">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="instagram" name="instagram"
+                                                    value="{{usuario.instagram}}" placeholder="0">
+                                                <label for="instagram"><img
+                                                        src="/assets/images/icons/instagram-icon.png"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="facebook" name="facebook"
+                                                   value="{{usuario.facebook}}" placeholder="0">
+                                                <label for="facebook"><img
+                                                        src="/assets/images/icons/facebook-icon.png"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="whatsapp" name="whatsapp"
+                                                    value="{{usuario.whatsapp}}" placeholder="0">
+                                                <label for="whatsapp"><img
+                                                        src="/assets/images/icons/whatsapp-icon.png"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </form>
 
                                 <button class="main-btn btn-hover">Salvar</button>
                         </form>
                     </div>
-</section>
-
-
-<footer class="footer-area">
-    <div class="widget-wrapper">
-        <div class="map-img">
-            <img src="assets/images/footer/map-img.svg" alt="">
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-4 col-md-7">
-                    <div class="footer-widget about">
-                        <a href="index.html" class="d-inline-block mb-30">
-                            <img src="assets/images/logo/logo.svg" alt="">
-                        </a>
-                        <p class="text-white mb-25">Buy And Sell Everything From Used Cars To Mobile Phones And
-                            Computers, Search For Property, Jobs And More</p>
-                        <ul class="social">
-                            <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
-                            <li><a href="javascript:void(0)"><i class="lni lni-twitter-filled"></i></a></li>
-                            <li><a href="javascript:void(0)"><i class="lni lni-instagram-filled"></i></a></li>
-                            <li><a href="javascript:void(0)"><i class="lni lni-linkedin-original"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-md-4 order-md-2 order-xl-1 col-sm-6">
-                    <div class="footer-widget">
-                        <h4>Quick Link</h4>
-                        <ul class="link">
-                            <li><a href="javascript:void(0)">Home</a></li>
-                            <li><a href="javascript:void(0)">About</a></li>
-                            <li><a href="javascript:void(0)">Category</a></li>
-                            <li><a href="javascript:void(0)">Product details</a></li>
-                            <li><a href="javascript:void(0)">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-md-4 order-md-3 order-xl-2 col-sm-6">
-                    <div class="footer-widget">
-                        <h4>Support</h4>
-                        <ul class="link">
-                            <li><a href="javascript:void(0)">Live Chat</a></li>
-                            <li><a href="javascript:void(0)">Privacy Policy</a></li>
-                            <li><a href="javascript:void(0)">Purchase</a></li>
-                            <li><a href="javascript:void(0)">Protection</a></li>
-                            <li><a href="javascript:void(0)">Support</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-md-4 order-md-4 order-xl-3 col-sm-6">
-                    <div class="footer-widget">
-                        <h4>Information</h4>
-                        <ul class="link">
-                            <li><a href="javascript:void(0)">Company</a></li>
-                            <li><a href="javascript:void(0)">Contact Info</a></li>
-                            <li><a href="javascript:void(0)">Blog & Articles</a></li>
-                            <li><a href="javascript:void(0)">Terms of Service</a></li>
-                            <li><a href="javascript:void(0)">Privacy Policy</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-md-5 order-md-1 order-xl-4 col-sm-6">
-                    <div class="footer-widget">
-                        <h4>Contact Us</h4>
-                        <ul>
-                            <li>
-                                <span>Phone:</span>
-                                0345983672937
-                            </li>
-                            <li>
-                                <span>Email:</span>
-                                <a href="/cdn-cgi/l/email-protection" class="__cf_email__"
-                                    data-cfemail="6b12041e19060a02072b0c060a020745080406">[email&#160;protected]</a>
-                            </li>
-                            <li>
-                                <span>Location:</span>
-                                United State of America
-                            </li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</footer>
 
+        <script>
+            //Consulta o CEP
 
-<script>
-    //Consulta o CEP
+            const cep = document.querySelector("#cep")
 
-    const cep = document.querySelector("#cep")
-
-    const showData = (result) => {
-        for (const campo in result) {
-            if (document.querySelector("#" + campo)) {
-                document.querySelector("#" + campo).value = result[campo]
+            const showData = (result) => {
+                for (const campo in result) {
+                    if (document.querySelector("#" + campo)) {
+                        document.querySelector("#" + campo).value = result[campo]
+                    }
+                }
             }
-        }
-    }
 
-    cep.addEventListener("blur", (e) => {
-        let search = cep.value.replace("-", "")
-        const options = {
-            method: 'GET',
-            mode: 'cors',
-            cache: 'default'
-        }
+            cep.addEventListener("blur", (e) => {
+                let search = cep.value.replace("-", "")
+                const options = {
+                    method: 'GET',
+                    mode: 'cors',
+                    cache: 'default'
+                }
 
-        fetch(`https://viacep.com.br/ws/${search}/json/`, options)
-            .then(response => {
-                response.json()
-                    .then(data => showData(data))
+                fetch(`https://viacep.com.br/ws/${search}/json/`, options)
+                    .then(response => {
+                        response.json()
+                            .then(data => showData(data))
+                    })
+                    .catch(e => console.log('Deu Erro: ' + e, message))
             })
-            .catch(e => console.log('Deu Erro: ' + e, message))
-    })
 
-</script>
+            if ({{ usuario.eTipoconta }} == 1 ) {
+                $("#dashboard").hide()
+                $("#lojavirtual").hide()
+                $("#myads").hide()
+            }
+
+            $('.camposExtrascpf').hide();
+            $(".radio-group__option").change(function () {
+                console.log('entro aqui')
+                if ($(this).val() == "cnpj") {
+                    $('.camposExtrascnpj').show();
+                    $('.camposExtrascpf').hide();
+                } else {
+                    $('.camposExtrascnpj').hide();
+                    $('.camposExtrascpf').show();
+                }
+            });
+
+        </script>
+
+        <script>
+
+            $(document).ready(() => {
+                console.log('ij')
+            })
+            //Consulta o CEP
+
+            const cep = document.querySelector("#cep")
+
+            const showData = (result) => {
+                for (const campo in result) {
+                    if (document.querySelector("#" + campo)) {
+                        document.querySelector("#" + campo).value = result[campo]
+                    }
+                }
+            }
+
+            cep.addEventListener("blur", (e) => {
+                let search = cep.value.replace("-", "")
+                const options = {
+                    method: 'GET',
+                    mode: 'cors',
+                    cache: 'default'
+                }
+
+                fetch(`https://viacep.com.br/ws/${search}/json/`, options)
+                    .then(response => {
+                        response.json()
+                            .then(data => showData(data))
+                    })
+                    .catch(e => console.log('Deu Erro: ' + e, message))
+            })
+
+        </script>

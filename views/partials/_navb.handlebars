@@ -89,7 +89,8 @@
 									</a>
 									<ul class="dropdown-nav">
 										<input type="hidden" id="validauser" name="validauser" value="{{usuarioLogado.eAdmin}}">
-										<li><a id="" href="/usuarios/perfil/{{usuarioLogado._id}}">Perfil</a></li>
+										<li><a id="user02" href="/usuarios/perfil-vendedor/{{usuarioLogado._id}}">Loja virtual</a></li>
+										<li><a id="user01" href="/usuarios/perfil/{{usuarioLogado._id}}">Perfil do usuário</a></li>										
 										<li><a id="iconvendedor" href="/usuarios/registro-vendedor/{{usuarioLogado._id}}">Torne-se um vendedor</a></li>
 										<li><a href="offers.html">Offers/Messages</a></li>
 										<li><a href="favorites.html">Favorites</a></li>
@@ -114,8 +115,9 @@
 	</header>
 	
 	<script>
-
-if( {{usuarioLogado.eTipo}} == 2 ){
+	$("#user02").hide()
+if( {{usuarioLogado.eTipoconta}} == 2 ){
 	$("#iconvendedor").hide()
+	$("#user02").show()
 }
 	</script>

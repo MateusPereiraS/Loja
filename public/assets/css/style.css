@@ -17,6 +17,9 @@
 /*===========================
     01.COMMON css 
 ===========================*/
+
+
+
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;800;900&display=swap");
 html {
   scroll-behavior: smooth;
@@ -3875,3 +3878,65 @@ footer css
 .client-logo-area .client-logo-wrapper .single-logo:hover {
   opacity: 1;
 }
+
+.conteudoConvenio {
+  
+  display: inline;
+  }
+
+/*------------------ Botão radio  -------------------*/
+.radio-group {
+  width: 250px;
+  display: table;
+  table-layout: fixed;
+  border-spacing: 0;
+  border-collapse: separate;
+}
+
+.radio-group__label {
+  display: table-cell;
+  height: 28px;
+  padding: 5px;
+  vertical-align: middle;
+  text-align: center;
+  position: relative;
+  border-style: solid none solid solid;
+  border-radius: 5px 0 0 5px;
+  -moz-transition: border 250ms, color 250ms;
+  -o-transition: border 250ms, color 250ms;
+  -webkit-transition: border 250ms, color 250ms;
+  transition: border 250ms, color 250ms;
+  cursor: pointer;
+}
+
+.radio-group__label+input+.radio-group__label {
+  border-radius: 0 5px 5px 0;
+  border-style: solid solid solid none;
+}
+
+.radio-group__label+input+.radio-group__label:before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: -1px;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #599ae6;
+  border-radius: 5px 0 0 5px;
+  transform: translate3d(-103%, 0, 0);
+  transition: all 250ms;
+}
+
+.radio-group__label+input:checked+.radio-group__label:before {
+  border-radius: 0 5px 5px 0;
+  transform: translate3d(-6px, 0, 0);
+}
+
+.radio-group__option:checked+label {
+  color: #599ae6;
+}
+
+.radio-group__option {
+  display: none;
+}
+/*------------- Fim botão radio ------------- */

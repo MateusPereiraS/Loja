@@ -62,16 +62,17 @@
                             </div>
                             <div class="col-12">
                                 <div class="single-form mb-20">
-                                    <input type="hidden" id="nomeempresa" name="nomeempresa" placeholder="Nome da empresa *" required
+                                    <input type="hidden" id="razaosocial" name="razaosocial" placeholder="Razão social *" required
                                         class="py-2 px-3 mb-0 rounded border">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="single-form mb-20">
-                                    <input type="hidden" id="razaosocial" name="razaosocial" placeholder="Razão social *" required
+                                <label for="name" class="mb-2">Nome da loja*</label>
+                                    <input type="text" id="nomeloja" name="nomeloja" placeholder="Nome da loja" required
                                         class="py-2 px-3 mb-0 rounded border">
                                 </div>
-                            </div>
+                            </div>                            
                             <div class="col-12">
                                 <div class="single-form mb-20">
                                     <label for="name" class="mb-2">Telefone comercial*</label>
@@ -215,12 +216,10 @@
 
         if (tamanho < 11) {
             $("#cpfcnpj").mask("999.999.999-99");
-            document.getElementById("nomeempresa").type = "hidden";
             document.getElementById("razaosocial").type = "hidden";
            
         } else {
             $("#cpfcnpj").mask("99.999.999/9999-99");
-            document.getElementById("nomeempresa").type = "text";
             document.getElementById("razaosocial").type = "text";
            
         }
