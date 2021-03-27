@@ -26,37 +26,36 @@
                     <h3 class="mb-20">Login</h3>
                     <form action="/usuarios/login" method="post">
                         <div class="row">
-                            <div class="col-12">
-                                <div class="single-form mb-20">
-                                    <label for="email" class="mb-2">Email</label>
-                                    <input type="text" id="email" name="email" placeholder="Email" required
-                                        class="py-2 px-3 mb-0 rounded border">
+
+                            <div class="col-md">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="0">
+                                    <label for="emailtroca">E-mail</label>
+                                </div>
+
+                                <div class="col-md">
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" id="senha" name="senha" placeholder="0">
+                                    <label for="emailtroca">Digite sua senha</label>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="single-form mb-30">
+                                        <button class="main-btn btn-hover py-2 px-5 rounded">Login</button>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-20">
+                                        <p>Esqueceu sua senha? <a href="" data-bs-toggle="modal"
+                                                data-bs-target="#trocarsenha">Redefinir</a></p>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="single-form mb-30">
+                                        <p>Não possui uma conta? <a href="/registro">Cadastre-se</a></p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <div class="single-form mb-20">
-                                    <label for="password" class="mb-2">Senha</label>
-                                    <input type="password" id="senha" value="" name="senha" placeholder="Password" required
-                                        class="py-2 px-3 mb-0 rounded border">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="single-form mb-30">
-                                    <button class="main-btn btn-hover py-2 px-5 rounded">Login</button>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="single-form mb-20">
-                                    <p>Esqueceu sua senha? <a href="" data-bs-toggle="modal"
-                                            data-bs-target="#trocarsenha">Redefinir</a></p>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="single-form mb-30">
-                                    <p>Não possui uma conta? <a href="/registro">Cadastre-se</a></p>
-                                </div>
-                            </div>
-                        </div>
                     </form>
                 </div>
             </div>
@@ -75,28 +74,29 @@
             </div>
             <div class="modal-body">
                 <form id="form-enviar-confirmacao" action="/usuarios/mail-senha/" method="POST">
-                    <div class="col-12">
-                        <div class="single-form mb-20">
-                            <label for="senha" class="mb-2">Digite seu email:</label>
-                            <input type="email" name="emailtroca" id="emailtroca" placeholder="exemplo@email.com"
-                                class="py-2 px-3 mb-0 rounded border">
+
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="emailtroca" name="emailtroca" placeholder="0">
+                            <label for="emailtroca">Digite seu e-mail</label>
                         </div>
-                        <button type="submit" id="enviaemail" class="btn btn-primary"
-                            onclick="trocarmodal()">Enviar</button>
                     </div>
+                    <button type="submit" id="enviaemail" class="btn btn-primary">Enviar</button>
+
                 </form>
+
                 <form id="form-confirma-token" action="/usuarios/reset-senha" method="POST">
-                <input type="hidden" id="receberemail" name="receberemail">
-                    <div class="col-12">
-                        <div class="single-form mb-20">
-                            <input type="text" name="token" id="token" placeholder="Chave recebida"
-                                class="py-2 px-3 mb-0 rounded border">
+                    <input type="hidden" id="receberemail" name="receberemail">
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="token" name="token" placeholder="0">
+                            <label for="emailtroca">Chave recebida</label>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <div class="single-form mb-20">
-                            <input type="password" name="senhanova" id="senhanova" placeholder="Nova senha"
-                                class="py-2 px-3 mb-0 rounded border">
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="senhanova" name="senhanova" placeholder="0">
+                            <label for="emailtroca">Digite sua nova senha</label>
                         </div>
                     </div>
 
@@ -120,7 +120,7 @@
                 if (response.responseid) {
                     $('#receberemail').val(emailtroca)
                     $('#form-confirma-token').show()
-                    $('#form-enviar-confirmacao').hide()            
+                    $('#form-enviar-confirmacao').hide()
                 }
             }
         });
@@ -286,5 +286,3 @@
     }
 
 </script>
-
-{{>_rodape}}

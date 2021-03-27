@@ -1,15 +1,15 @@
 const express = require('express')
 const router = express.Router()
 const mongoose = require("mongoose")
-require("../models/Usuario")
+require("../../models/Usuario")
 const nodemailer = require('nodemailer');
-const mailer = require('../node_modules/mailer')
+const mailer = require('mailer')
 const Usuario = mongoose.model("usuarios")
 const bcryptjs = require("bcryptjs")
 const passport = require("passport")
 var file = require('file-system')
 var fs = require('fs')
-const { eAdmin } = require("../helpers/eAdmin")
+const { eAdmin } = require("../../helpers/eAdmin")
 const multer = require('multer')
 const crypto = require('crypto')
 const { getMaxListeners } = require('process')
@@ -392,8 +392,5 @@ router.post('/ativar-vendedor', async (req, res) => { // rota para edicao do per
 
     })
 })
-
-
-
 
 module.exports = router

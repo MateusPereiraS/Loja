@@ -1,0 +1,161 @@
+{{>_navb}}
+
+<div class="preloader">
+    <div class="loader">
+        <div class="ytp-spinner">
+            <div class="ytp-spinner-container">
+                <div class="ytp-spinner-rotator">
+                    <div class="ytp-spinner-left">
+                        <div class="ytp-spinner-circle"></div>
+                    </div>
+                    <div class="ytp-spinner-right">
+                        <div class="ytp-spinner-circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="banner-area bg_cover">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="banner-content">
+                    <h1 class="text-white">
+                        My Ads
+                    </h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Ads</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="dashboard-area pb-110">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-3 col-lg-4">
+                <div class="left-sidebar-wrapper box-style">
+                    <div class="sidebar-menu">
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a href="dashboard.html"><i class="lni lni-dashboard"></i>Dashboard</a>
+                                </li>
+                                <li>
+                                    <a href="profile-settings.html"><i class="lni lni-cog"></i>Profile Settings</a>
+                                </li>
+                                <li>
+                                    <a href="post-ad.html"><i class="lni lni-cog"></i>Post Ad</a>
+                                </li>
+                                <li>
+                                    <a href="my-ads.html" class="active"><i class="lni lni-layers"></i>My Ads</a>
+                                </li>
+                                <li>
+                                    <a href="offers.html"><i class="lni lni-envelope"></i>Offers / Message</a>
+                                </li>
+                                <li>
+                                    <a href="payments.html"><i class="lni lni-paypal"></i>Payments</a>
+                                </li>
+                                <li>
+                                    <a href="favorites.html"><i class="lni lni-heart"></i>My Favorites</a>
+                                </li>
+                                <li>
+                                    <a href="privacy.html"><i class="lni lni-star"></i>Privacy Settings</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"><i class="lni lni-exit"></i>Sign Out</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-9 col-lg-8">
+                <div class="dashboard-wrapper box-style">
+                    <div class="title">
+                        <h3>My Ads</h3>
+                    </div>
+                    <div class="cards-wrapper pb-25 mb-15 border-bottom">
+                        <a href="javascript:void(0)" class="ads-btn active">All Ads (42)</a>
+                        <a href="javascript:void(0)" class="ads-btn">Published (88)</a>
+                        <a href="javascript:void(0)" class="ads-btn">Featured (17)</a>
+                        <a href="javascript:void(0)" class="ads-btn">Sold (32)</a>
+                        <a href="javascript:void(0)" class="ads-btn">Active (54)</a>
+                        <a href="javascript:void(0)" class="ads-btn">Expired (02)</a>
+                    </div>
+                    <button type="button" class="btn btn-primary">+ Adicionar</button>
+                    {{#each produto}}
+                    <div class="table-wrapper table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Imagem
+                                    </th>
+                                    <th>
+                                        Nome
+                                    </th>
+                                    <th>
+                                        Categoria
+                                    </th>
+                                    <th>
+                                        Status
+                                    </th>
+                                    <th>
+                                        Valor
+                                    </th>
+                                    <th>
+                                        Ação
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="image">
+                                            <div class="form-check check-style">
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                    id="flexCheckDefault1">
+                                            </div>
+                                            <img src="assets/images/product/product-thumb-1.jpg" width="100" alt="">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <h6>{{dataValues.nome_produto}}</h6>
+                                    </td>
+                                    <td>
+                                        <span class="category">{{dataValues.categoria}}</span>
+                                    </td>
+                                    <td>
+                                        <span class="status-btn">{{dataValues.statusprod}}</span>
+                                    </td>
+                                    <td>
+                                        <p>{{dataValues.valor_produto}}</p>
+                                    </td>
+                                    <td>
+                                        <div class="action-btns">
+                                            <a href="javascript:void(0)" class="eye-btn"><i class="lni lni-eye"></i></a>
+                                            <a href="javascript:void(0)" class="edit-btn"><i
+                                                    class="lni lni-pencil"></i></a>
+                                            <a href="javascript:void(0)" class="delete-btn"><i
+                                                    class="lni lni-trash"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{{>_rodape}}

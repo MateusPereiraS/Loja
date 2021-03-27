@@ -16,6 +16,8 @@ const flash = require("connect-flash")
 //Colections
 require("./models/Usuario")
 const Usuario = mongoose.model("usuarios")
+require("./models/Produto")
+const Produto = mongoose.model("produto")
 const passport = require("passport")
 require("./config/auth")(passport)
 
@@ -106,7 +108,6 @@ app.get("/login", (req, res) => {
     res.render('./usuarios/login')
     
 })
-
 app.get("/perfil", (req, res) => {
     res.render('./usuarios/perfil')
 })
@@ -124,14 +125,15 @@ res.render("./usuarios/privacy")
 
 /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 // Rotas "routes" puxando elas
-const usuarios = require("./routes/usuario")
+const usuarios = require("./routes/usuario/usuario")
+const produtos = require("./routes/produtos/produtos")
 
 
 
 
 // Rotas "Ficam em outros arquivos, ocupam menos espaço"
 app.use('/usuarios', usuarios)
-
+app.use('/produtos', produtos)
 
 // Rotas para administracao
     const admin = require('./routes/admin/dashboard')
