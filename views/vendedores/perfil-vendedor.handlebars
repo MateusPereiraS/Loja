@@ -18,6 +18,7 @@
     </div>
 </section>
 
+
 <header class="dashboard-area pb-110">
     <div class="container-md rounded border"
         style="background-color: white;width: 100%;height: 400px;background-image: url('img_flowers.jpg');
@@ -62,322 +63,277 @@
     </div>
     </center>
 </header>
-<section class="dashboard-area pb-110">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-3 col-lg-4">
-                <div class="left-sidebar-wrapper box-style">
-                    <div class="sidebar-menu">
-                        <nav>
-                            <ul>
-                                <li>
-                                    <a href="dashboard.html" id="dashboard"><i
-                                            class="lni lni-dashboard"></i>Dashboard</a>
-                                </li>
-                                <li>
-                                    <a href="/usuarios/perfil/{{usuario._id}}"><i class="lni lni-cog"></i>Dados do
-                                        usuário</a>
-                                </li>
-                                <li>
-                                    <a href="/usuarios/perfil-vendedor/{{usuario._id}}" id="lojavirtual"><i
-                                            class="lni lni-cog" class="active"></i>Loja virtual</a>
-                                </li>
-                                <li>
-                                    <a href="/produtos/meusprodutos/{{usuario._id}}" id="myads"><i class="lni lni-layers"></i>Meus produtos</a>
-                                </li>
-                                <li>
-                                    <a href="offers.html"><i class="lni lni-envelope"></i>Ofertas/Mensagens</a>
-                                </li>
-                                <li>
-                                    <a href="payments.html"><i class="lni lni-paypal"></i>Pagamentos</a>
-                                </li>
-                                <li>
-                                    <a href="favorites.html"><i class="lni lni-heart"></i>Favoritos</a>
-                                </li>
-                                <li>
-                                    <a href="/privacy"><i class="lni lni-star"></i>Configurações</a>
-                                </li>
-                                <li>
-                                    <a href="/usuarios/logout"><i class="lni lni-exit"></i>Sair</a>
-                                </li>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
+{{>_menu_loja}}
 
-            <div class="col-xl-9 col-lg-8">
-                <div class="post-ad-wrapper box-style">
-                    <div class="title">
-                        <h3>
-                            <center>Informações da loja</center>
-                        </h3></br>
-                    </div>
-                    <div class="post-ad-form-wrapper">
-                        <form action="/usuarios/salvarperfil-loja" method="POST">
-                            <div class="container">
-                                <form>
-                                    <input type="hidden" value="{{usuario._id}}" id="id" name="id">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" value="{{usuario.nomeloja}}"
-                                            id="nomeloja" name="nomeloja" placeholder="name@example.com">
-                                        <label for="nomeloja">Nome da loja</label>
-                                    </div>
-
-                                    <div class="title">
-                                        <center><Label>Pessoa</Label></center>
-                                    </div>
-
-                                    <center>
-                                        <div class="radio-group">
-                                            <input id="fisica" class="radio-group__option" type="radio" name="opt">
-                                            <label class="radio-group__label" for="fisica">
-                                                Física
-                                            </label>
-
-                                            <input id="juridica" class="radio-group__option" type="radio" name="opt"
-                                                value="cnpj" checked="checked">
-                                            <label class="radio-group__label" for="juridica">
-                                                Jurídica
-                                            </label>
-                                        </div>
-                                        <br />
-                                    </center>
-                                    <div class="camposExtrascnpj">
-
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="rzsocial" name="rzsocial"
-                                                value="{{usuario.rzsocial}}" placeholder="name@example.com">
-                                            <label for="rzsocial">Razão social</label>
-                                        </div>
-
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="cnpj" name="cnpj"
-                                                value="{{usuario.cnpj}}" placeholder="name@example.com">
-                                            <label for="cnpj">CNPJ</label>
-
-                                        </div>
-                                    </div>
-
-
-                                    <div class="camposExtrascpf">
-
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="nomecompleto"
-                                                name="nomecompleto" value="{{usuario.nome}}"
-                                                placeholder="name@example.com">
-                                            <label for="nomecompleto">Nome completo</label>
-                                        </div>
-
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="cpf" name="cpf"
-                                                value="{{usuario.cpf}}" placeholder="name@example.com">
-                                            <label for="floatingInput">CPF</label>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="title">
-                                        <h5 style="color: rgb(104, 104, 104);">
-                                            <center>Contato e localização</center>
-                                        </h5></br>
-                                    </div>
-
-                                    <center>
-                                        <div class="row g-2">
-                                            <div class="col-md">
-                                                <div class="form-floating">
-                                                    <input type="text" class="form-control" id="telcomercial"
-                                                        name="telcomercial" value="{{usuario.telefone_loja}}" placeholder="0">
-                                                    <label for="telcomercial">Telefone</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-floating">
-                                                    <input type="text" class="form-control" id="celcomercial"
-                                                        name="celcomercial" value="{{usuario.celular_loja}}" placeholder="0">
-                                                    <label for="celcomercial">Celular</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-floating">
-                                                    <input type="email" class="form-control" id="email" name="email"
-                                                      value="{{usuario.email_loja}}"  placeholder="0">
-                                                    <label for="email">Email</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row g-2">
-                                            <div class="col-md-3">
-                                                <div class="form-floating">
-                                                    <input type="text" class="form-control" id="cep" name="cep"
-                                                       value="{{usuario.cep}}" placeholder="0">
-                                                    <label for="cep">CEP</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-floating">
-                                                    <input type="text" class="form-control" id="logradouro"
-                                                        name="logradouro" value="{{usuario.endereco}}" placeholder="0">
-                                                    <label for="logradouro">Endereço</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-floating">
-                                                    <input type="number" class="form-control" id="numero" name="numero"
-                                                       value="{{usuario.numero}}" placeholder="0">
-                                                    <label for="numero">N°, ap, lote</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row g-2">
-                                            <div class="col-md">
-                                                <div class="form-floating">
-                                                    <input type="text" class="form-control" id="bairro" name="bairro"
-                                                       value="{{usuario.bairro}}" placeholder="0">
-                                                    <label for="telcomercial">Bairro</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md">
-                                                <div class="form-floating">
-                                                    <input type="text" class="form-control" id="localidade"
-                                                        name="localidade" value="{{usuario.cidade}}" placeholder="0">
-                                                    <label for="celcomercial">Cidade</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <div class="form-floating">
-                                                    <input type="text" class="form-control" id="uf" name="uf"
-                                                       value="{{usuario.uf}}" placeholder="0">
-                                                    <label for="celcomercial">UF</label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </center>
-
-                                    <div class="title">
-                                        <h5 style="color: rgb(104, 104, 104);">
-                                            <center>Redes sociais</center>
-                                        </h5></br>
-                                    </div>
-                                    <div class="row g-2">
-                                        <div class="col-md">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control" id="instagram" name="instagram"
-                                                    value="{{usuario.instagram}}" placeholder="0">
-                                                <label for="instagram"><img
-                                                        src="/assets/images/icons/instagram-icon.png">Instagram</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control" id="facebook" name="facebook"
-                                                   value="{{usuario.facebook}}" placeholder="0">
-                                                <label for="facebook"><img
-                                                        src="/assets/images/icons/facebook-icon.png">Facebook</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control" id="whatsapp" name="whatsapp"
-                                                    value="{{usuario.whatsapp}}" placeholder="0">
-                                                <label for="whatsapp"><img
-                                                        src="/assets/images/icons/whatsapp-icon.png">Whatsapp</label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </form>
-
-                                <button class="main-btn btn-hover">Salvar</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+<div class="col-xl-9 col-lg-8">
+    <div class="post-ad-wrapper box-style">
+        <div class="title">
+            <h3>
+                <center>Informações da loja</center>
+            </h3></br>
         </div>
+        <div class="post-ad-form-wrapper">
+            <form id="form-salvar-infoloja" action="/usuarios/salvarperfil-loja" method="POST">
+                <div class="container">
 
-        <script>
-            //Consulta o CEP
+                    <input type="hidden" value="{{usuario._id}}" id="id" name="id">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" value="{{usuario.nomeloja}}" id="nomeloja"
+                            name="nomeloja" placeholder="name@example.com" required>
+                        <label for="nomeloja">Nome da loja</label>
+                    </div>
 
-            const cep = document.querySelector("#cep")
+                    <div class="title">
+                        <center><Label>Pessoa</Label></center>
+                    </div>
+                    <center>
+                        <div class="radio-group">
+                            <input id="fisica" class="radio-group__option" type="radio" name="opt">
+                            <label class="radio-group__label" for="fisica">
+                                Física
+                            </label>
 
-            const showData = (result) => {
-                for (const campo in result) {
-                    if (document.querySelector("#" + campo)) {
-                        document.querySelector("#" + campo).value = result[campo]
-                    }
-                }
-            }
+                            <input id="juridica" class="radio-group__option" type="radio" name="opt" value="cnpj">
+                            <label class="radio-group__label" for="juridica">
+                                Jurídica
+                            </label>
+                        </div>
+                        <br />
+                    </center>
+                    <input type="hidden" id="Tipopessoa" name="Tipopessoa">
+                    <div class="camposExtrascnpj">
 
-            cep.addEventListener("blur", (e) => {
-                let search = cep.value.replace("-", "")
-                const options = {
-                    method: 'GET',
-                    mode: 'cors',
-                    cache: 'default'
-                }
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="rzsocial" name="rzsocial"
+                                value="{{usuario.rzsocial}}" placeholder="name@example.com">
+                            <label for="rzsocial">Razão social</label>
+                        </div>
 
-                fetch(`https://viacep.com.br/ws/${search}/json/`, options)
-                    .then(response => {
-                        response.json()
-                            .then(data => showData(data))
-                    })
-                    .catch(e => console.log('Deu Erro: ' + e, message))
-            })
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="cnpj" name="cnpj" value="{{usuario.cnpj}}"
+                                placeholder="name@example.com" onkeyup="cnpjCheck(this)" autocomplete="off">
+                            <label for="cnpj">CNPJ</label>
+                            <span class="d-inline" id="cnpjResponse"></span></p>
 
-            if ({{ usuario.eTipoconta }} == 1 ) {
-                $("#dashboard").hide()
-                $("#lojavirtual").hide()
-                $("#myads").hide()
-            }
+                        </div>
+                    </div>
 
+
+                    <div class="camposExtrascpf">
+
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="nomecompleto" name="nomecompleto"
+                                value="{{usuario.nomecompleto}}" placeholder="name@example.com">
+                            <label for="nomecompleto">Nome completo</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="cpf" name="cpf" value="{{usuario.cpf}}"
+                                placeholder="name@example.com" onkeyup="cpfCheck(this)" autocomplete="off"
+                                onkeydown="javascript: fMasc( this, mCPF );">
+                            <label for="floatingInput">CPF</label>
+                            <span class="d-inline" id="cpfResponse"></span></p>
+                        </div>
+
+                    </div>
+                    <input type="hidden" id="validate" name="validate">
+
+                    <div class="title">
+                        <h5 style="color: rgb(104, 104, 104);">
+                            <center>Contato e localização</center>
+                        </h5></br>
+                    </div>
+
+                    <center>
+                        <div class="row g-2">
+                            <div class="col-md">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="telcomercial" name="telcomercial"
+                                        value="{{usuario.telefone_loja}}" placeholder="0">
+                                    <label for="telcomercial">Telefone</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="celcomercial" name="celcomercial"
+                                        value="{{usuario.celular_loja}}" placeholder="0" required>
+                                    <label for="celcomercial">Celular</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        value="{{usuario.email_loja}}" placeholder="0">
+                                    <label for="email">Email</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-2">
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="cep" name="cep" value="{{usuario.cep}}"
+                                        placeholder="0" required>
+                                    <label for="cep">CEP</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="logradouro" name="logradouro"
+                                        value="{{usuario.endereco}}" placeholder="0" required>
+                                    <label for="logradouro">Endereço</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="numero" name="numero"
+                                        value="{{usuario.numero}}" placeholder="0" required>
+                                    <label for="numero">N°, ap, lote</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-2">
+                            <div class="col-md">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="bairro" name="bairro"
+                                        value="{{usuario.bairro}}" placeholder="0" required>
+                                    <label for="bairro">Bairro</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="localidade" name="localidade"
+                                        value="{{usuario.cidade}}" placeholder="0" required>
+                                    <label for="localidade">Cidade</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="uf" name="uf" value="{{usuario.uf}}"
+                                        placeholder="0" required>
+                                    <label for="uf">UF</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </center>
+
+                    <div class="title">
+                        <h5 style="color: rgb(104, 104, 104);">
+                            <center>Redes sociais</center>
+                        </h5></br>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col-md">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="instagram" name="instagram"
+                                    value="{{usuario.instagram}}" placeholder="0">
+                                <label for="instagram"><img
+                                        src="/assets/images/icons/instagram-icon.png">Instagram</label>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="facebook" name="facebook"
+                                    value="{{usuario.facebook}}" placeholder="0">
+                                <label for="facebook"><img src="/assets/images/icons/facebook-icon.png">Facebook</label>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" class="whatsapp" id="whatsapp" name="whatsapp"
+                                    value="{{usuario.whatsapp}}" placeholder="0" maxlength="14"
+                                    onkeyup="calculartel(this)">
+                                <label for="whatsapp"><img src="/assets/images/icons/whatsapp-icon.png">Whatsapp</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="main-btn btn-hover" id="salvar">Salvar</button>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<script src="/assets/js/vendedor/perfil-vendedor.js"></script>
+
+<!-- Script para salvar pessoa física ou juridica 
+                Jurídica = 1 / Fisica = 2  -->
+<script>
+
+    if ({{ usuario.eTipopessoa }} == 1) {
+        document.querySelector('#juridica').checked = true
+        document.querySelector('#Tipopessoa').value = "1"
+        document.getElementById('cpf').value = '';
+        $('.camposExtrascnpj').show();
+        $('.camposExtrascpf').hide();
+        $('#rzsocial').prop('required', true);
+        $('#nomecompleto').removeAttr('required');
+        $('#cpf').removeAttr('required');
+        $('#cnpj').prop('required', true);
+    } if ({{ usuario.eTipopessoa }} == 2) {
+        document.querySelector('#fisica').checked = true
+        document.querySelector('#Tipopessoa').value = "2"
+        document.getElementById('cnpj').value = '';
+        $('.camposExtrascnpj').hide();
+        $('.camposExtrascpf').show();
+        $('#rzsocial').removeAttr('required');
+        $('#nomecompleto').prop('required', true);
+        $('#cnpj').removeAttr('required');
+        $('#cpf').prop('required', true);
+    }else {
+        $('.camposExtrascpf').hide();
+    }
+</script>
+
+<script>
+
+    $(".radio-group__option").change(function () {
+        if ($(this).val() == "cnpj") {
+            document.querySelector('#Tipopessoa').value = "1"
+            document.getElementById('cpf').value = '';
+            $('.camposExtrascnpj').show();
             $('.camposExtrascpf').hide();
-            $(".radio-group__option").change(function () {
-                console.log('entro aqui')
-                if ($(this).val() == "cnpj") {
-                    $('.camposExtrascnpj').show();
-                    $('.camposExtrascpf').hide();
-                } else {
-                    $('.camposExtrascnpj').hide();
-                    $('.camposExtrascpf').show();
+            $('#rzsocial').prop('required', true);
+            $('#nomecompleto').removeAttr('required');
+            $('#cpf').removeAttr('required');
+            $('#cnpj').prop('required', true);
+        } else {
+            document.querySelector('#Tipopessoa').value = "2"
+            document.getElementById('cnpj').value = '';
+            $('.camposExtrascnpj').hide();
+            $('.camposExtrascpf').show();
+            $('#rzsocial').removeAttr('required');
+            $('#nomecompleto').prop('required', true);
+            $('#cnpj').removeAttr('required');
+            $('#cpf').prop('required', true);
+        }
+    });
+
+
+</script>
+
+<script>
+        //Máscaras   
+    $("#cpf").mask("000.000.000-00");
+    $("#cep").mask("00000-000");
+    $("#telcomercial").mask("(00)0000-0000")
+    $("#celcomercial").mask("(00)00000-0000")
+    $("#cnpj").mask("00.000.000/0000-00")
+
+
+    //Mascara para fixo e celular
+    $(document).ready(function () {
+        var SPMaskBehavior = function (val) {
+            return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+        },
+            spOptions = {
+                onKeyPress: function (val, e, field, options) {
+                    field.mask(SPMaskBehavior.apply({}, arguments), options);
                 }
-            });
+            };
 
-        </script>
+        $('#whatsapp').mask(SPMaskBehavior, spOptions);
+    });
+</script>
 
-        <script>
-
-            $(document).ready(() => {
-                console.log('ij')
-            })
-            //Consulta o CEP
-
-            const cep = document.querySelector("#cep")
-
-            const showData = (result) => {
-                for (const campo in result) {
-                    if (document.querySelector("#" + campo)) {
-                        document.querySelector("#" + campo).value = result[campo]
-                    }
-                }
-            }
-
-            cep.addEventListener("blur", (e) => {
-                let search = cep.value.replace("-", "")
-                const options = {
-                    method: 'GET',
-                    mode: 'cors',
-                    cache: 'default'
-                }
-
-                fetch(`https://viacep.com.br/ws/${search}/json/`, options)
-                    .then(response => {
-                        response.json()
-                            .then(data => showData(data))
-                    })
-                    .catch(e => console.log('Deu Erro: ' + e, message))
-            })
-
-        </script>

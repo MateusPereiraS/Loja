@@ -1,0 +1,68 @@
+<section class="dashboard-area pb-110">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-3 col-lg-4">
+                <div class="left-sidebar-wrapper box-style">
+                    <div class="sidebar-header">
+                        <form method="POST" id="form-upload-image-perfil"
+                            action="/usuarios/fotoperfiluser/{{usuario._id}}/foto-perfil.jpg"
+                            enctype="multipart/form-data">
+                            <div class="image">
+                                <img src="/assets/images/users/{{usuario._id}}/foto-perfil.jpg" alt="">
+                            </div>
+                            <label for='file2'
+                                style="background-color: #599ae6; font-size:x-small; border-radius: 5px; color: #fff; cursor: pointer; margin: 10px; padding: 6px 20px"><img
+                                    src="/assets/images/icons/camera.png">
+                            </label>
+                            <input id='file2' name="img_user" style="display: none" type='file'>
+                        </form>
+                        <script>
+                            $('#file2').change(() => {
+                                $('#form-upload-image-perfil').submit()
+                            })
+                        </script>
+                        <div class="info">
+                            <h3>{{usuario.nick}}</h3>
+                            <p class="mb-30">{{usuario.email}}</p>
+                        </div>
+                    </div>
+                    <div class="sidebar-menu">
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a href="dashboard.html" id="dashboard"><i
+                                            class="lni lni-dashboard"></i>Dashboard</a>
+                                </li>
+                                <li>
+                                    <a href="/usuarios/perfil/{{usuario._id}}"><i class="lni lni-cog"></i>Dados do
+                                        usuário</a>
+                                </li>
+                                <li>
+                                    <a href="/usuarios/perfil-vendedor/{{usuario._id}}" id="lojavirtual"><i
+                                            class="lni lni-cog" class="active"></i>Loja virtual</a>
+                                </li>
+                                <li>
+                                    <a href="/produtos/meusprodutos/{{usuario._id}}" id="myads"><i
+                                            class="lni lni-layers"></i>Meus produtos</a>
+                                </li>
+                                <li>
+                                    <a href="offers.html"><i class="lni lni-envelope"></i>Ofertas/Mensagens</a>
+                                </li>
+                                <li>
+                                    <a href="payments.html"><i class="lni lni-paypal"></i>Pagamentos</a>
+                                </li>
+                                <li>
+                                    <a href="favorites.html"><i class="lni lni-heart"></i>Favoritos</a>
+                                </li>
+                                <li>
+                                    <a href="/privacy"><i class="lni lni-star"></i>Configurações</a>
+                                </li>
+                                <li>
+                                    <a href="/usuarios/logout"><i class="lni lni-exit"></i>Sair</a>
+                                </li>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>

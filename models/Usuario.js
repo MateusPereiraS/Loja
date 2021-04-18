@@ -11,6 +11,14 @@ const Usuario = new Schema({
         type: String,
         required: true
     },
+    cpf_user:{
+        type: String,
+        required: true
+    },
+    data_idade:{
+        type: String,
+        required: true
+    },
     celular_user: {
         type: String
     },

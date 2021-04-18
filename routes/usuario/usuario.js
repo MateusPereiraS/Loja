@@ -2,8 +2,7 @@ const express = require('express')
 const router = express.Router()
 const mongoose = require("mongoose")
 require("../../models/Usuario")
-const nodemailer = require('nodemailer');
-const mailer = require('mailer')
+const mailer = require('../../node_modules/mailer')
 const Usuario = mongoose.model("usuarios")
 const bcryptjs = require("bcryptjs")
 const passport = require("passport")
@@ -35,24 +34,24 @@ router.post("/registro/add", (req, res) => {
 
     var erros = []
 
-    if (!req.body.nick || typeof req.body.nick == undefined || req.body.nick == null) {
-        erros.push({ texto: "Dados inválidos! Verifique se todos os campos foram preenchidos corretamente." })
+    if (req.body.demo < 16) {
+        erros.push({ texto: "Você precisa ser maior de idade para se cadastrar." })
     }
 
-    if (!req.body.email || typeof req.body.email == undefined || req.body.email == null) {
-        erros.push({ texto: "Dados inválidos! Verifique se todos os campos foram preenchidos corretamente." })
+    if (req.body.validacpf == "Inválido") {
+        erros.push({ texto: "CPF Inválido." })
     }
 
     if (!req.body.senha || typeof req.body.senha == undefined || req.body.senha == null) {
-        erros.push({ texto: "Dados inválidos! Verifique se todos os campos foram preenchidos corretamente." })
+        erros.push({ texto: "Senha inválida." })
     }
 
     if (req.body.senha.length < 4) {
-        erros.push({ texto: "Dados inválidos! Verifique se todos os campos foram preenchidos corretamente." })
+        erros.push({ texto: "Senha muito curta." })
     }
 
     if (req.body.senha != req.body.senha2) {
-        erros.push({ texto: "Dados inválidos! Verifique se todos os campos foram preenchidos corretamente." })
+        erros.push({ texto: "As senhas digitadas estão divergentes." })
     }
 
     if (erros.length > 0) {
@@ -70,6 +69,8 @@ router.post("/registro/add", (req, res) => {
                     nick: req.body.nick,
                     email: req.body.email,
                     senha: req.body.senha,
+                    cpf_user: req.body.cpf,
+                    data_idade: req.body.idade,
                     eAdmin: 1,
                     eTipoconta: 1
 
@@ -84,7 +85,7 @@ router.post("/registro/add", (req, res) => {
 
                         novoUsuario.save().then(() => {
                             req.flash("success_msg", "Usuario criado com sucesso!")
-                            res.redirect("/")
+                            res.redirect("/login")
                         }).catch((err) => {
                             console.log(err)
                             req.flash("error_msg", "Houve um erro ao criar o usuário")
@@ -134,7 +135,7 @@ router.post("/login", (req, res, next) => {
     passport.authenticate("local", {
         successRedirect: "/",
         failureRedirect: "/usuarios/login",
-        failureFlash: true
+        failureFlash: req.flash("error_msg", "E-mail ou senha inválido.")
     })(req, res, next)
 
 })
@@ -156,7 +157,7 @@ router.get("/registro-vendedor/:id", eAdmin, async (req, res) => { // perfil do 
             //Efetua a criação do diretório
             fs.mkdir(dir, (err) => {
                 if (err) {
-                    console.log("Deu ruim...");
+                    res.redirect
                     return
                 }
 
@@ -179,10 +180,9 @@ router.get("/perfil/:id", eAdmin, async (req, res) => { // perfil do usuário
             //Efetua a criação do diretório
             fs.mkdir(dir, (err) => {
                 if (err) {
-                    console.log("Deu ruim...");
+                    res.render('/404')
                     return
                 }
-
                 console.log("Diretório criado! =)")
             });
         }
@@ -210,21 +210,21 @@ router.post('/reset-senha', async (req, res) => {
             .select('+senhaResetToken senhaResetExpires')
         const now = new Date();
         if (req.body.token !== user.senhaResetToken || now > user.senhaResetExpires) {
-            req.flash("error_msg", "Chave inválida2!")
+            res.json({ responseid: 100 })
+        } if (req.body.senhanova == null || req.body.senhanova.length < 4) {
+            res.json({ responseid: 125 })
         } else {
+
+            res.json({ responseid: 200 })
 
             user.senha = req.body.senhanova
             bcryptjs.genSalt(10, (erro, salt) => {
                 bcryptjs.hash(user.senha, salt, (erro, hash) => {
                     if (erro) {
-                        res.json(402)
                     }
-
                     user.senha = hash
-
-                    console.log('ok')
                     user.save().then(() => {
-                        res.redirect('back')
+
                     }).catch((erro) => {
                         console.log(erro)
                     })
@@ -243,9 +243,10 @@ router.post('/mail-senha', async (req, res) => {
         const user = await Usuario.findOne({ email: req.body.emailtroca });
 
         if (!user) {
-            res.send({ responseid: 100 })
+            res.json({ responseid: 100 })
         } else {
-            const token = crypto.randomBytes(5).toString('hex')
+
+            const token = crypto.randomBytes(2).toString('hex')
             const now = new Date();
             now.setHours(now.getHours() + 1)
 
@@ -258,21 +259,21 @@ router.post('/mail-senha', async (req, res) => {
 
                 mailer.sendMail({
                     to: req.body.emailtroca,
-                    from: 'mateusfpsgamex@gmail.com',
+                    from: 'login123258@gmail.com',
                     template: '/forgot_password',
                     context: { token },
 
                 }, (err) => {
                     if (err)
-                        res.send({ responseid: 100 })
+                        console.log(err)
 
                 })
 
                 console.log(token, now)
-                res.send({ responseid: 200 })
-
+                res.json({ responseid: 200 })
             }).catch(err => {
-                res.send({ responseid: 100 })
+                console.log(err)
+
             })
         }
 
@@ -318,9 +319,11 @@ router.post('/salvarperfil', async (req, res) => { // rota para edicao do perfil
     Usuario.findById({ _id: req.body.id }).then(usuario => {
 
         usuario.nick = req.body.nick,
-        usuario.celular_user = req.body.celular,
-        usuario.email = req.body.email,
-        
+            usuario.celular_user = req.body.celular,
+            usuario.email = req.body.email,
+            usuario.cpf_user = req.body.cpf,
+            usuario.data_idade = req.body.idade
+
 
 
         usuario.save().then(() => {
@@ -336,61 +339,85 @@ router.post('/salvarperfil', async (req, res) => { // rota para edicao do perfil
 })
 
 router.post('/salvarperfil-loja', async (req, res) => { // rota para edicao do perfil, apenas o dados
-    Usuario.findById({ _id: req.body.id }).then(usuario => {
+    try {
+        const loja = await Usuario.findById({ _id: req.body.id })
 
-        usuario.nomeloja = req.body.nomeloja,
-        usuario.rzsocial = req.body.rzsocial,
-        usuario.cnpj = req.body.cnpj,
-        usuario.nomecompleto = req.body.nomecompleto,
-        usuario.cpf = req.body.cpf,
-        usuario.telefone_loja = req.body.telcomercial,
-        usuario.celular_loja = req.body.celcomercial,
-        usuario.email_loja = req.body.email,
-        usuario.cep = req.body.cep,
-        usuario.endereco = req.body.logradouro,
-        usuario.numero = req.body.numero,
-        usuario.bairro = req.body.bairro,
-        usuario.cidade = req.body.localidade,
-        usuario.uf = req.body.uf,
-        usuario.instagram = req.body.instagram,
-        usuario.facebook = req.body.facebook,
-        usuario.whatsapp = req.body.whatsapp
+        if (req.body.validate == "false") {
+            res.json({ responseid: 101 })
+        } else {
 
-        
+            res.json({ responseid: 200 })
+            loja.nomeloja = req.body.nomeloja,
+                loja.eTipopessoa = req.body.Tipopessoa,
+                loja.rzsocial = req.body.rzsocial,
+                loja.cnpj = req.body.cnpj,
+                loja.nomecompleto = req.body.nomecompleto,
+                loja.cpf = req.body.cpf,
+                loja.telefone_loja = req.body.telcomercial,
+                loja.celular_loja = req.body.celcomercial,
+                loja.email_loja = req.body.email,
+                loja.cep = req.body.cep,
+                loja.endereco = req.body.logradouro,
+                loja.numero = req.body.numero,
+                loja.bairro = req.body.bairro,
+                loja.cidade = req.body.localidade,
+                loja.uf = req.body.uf,
+                loja.instagram = req.body.instagram,
+                loja.facebook = req.body.facebook,
+                loja.whatsapp = req.body.whatsapp
+            loja.save().then(() => {
 
 
-        usuario.save().then(() => {
-            console.log('ok')
-            req.flash('success_msg', 'Dados editado com sucesso')
-            res.redirect('/usuarios/perfil-vendedor/' + usuario._id)
-        }).catch(err => {
-            req.flash('error_msg', 'Error ao editar dados' + err)
-            res.redirect('/')
-        })
+            }).catch(err => {
+                console.log(err)
 
-    })
+            })
+
+        }
+    } catch (err) {
+
+    }
+
 })
 
 router.post('/ativar-vendedor', async (req, res) => { // rota para edicao do perfil, apenas o dados
-    Usuario.findById({ _id: req.body.idvendedor }).then(usuario => {
+    try {
+        const ativarloja = await Usuario.findById({ _id: req.body.idvendedor })
 
-            usuario.cnpj = req.body.cpf_cnpj,
-            usuario.nomeloja = req.body.nomeloja,
-            usuario.rzsocial = req.body.razaosocial,
-            usuario.telefone_loja = req.body.telcomercial,
-            usuario.celular_loja = req.body.telcelular,
-            usuario.eTipoconta = 2
 
-        usuario.save().then(() => {
-            console.log('ok')
-            req.flash('success_msg', 'Cadastro alterado para vendedor')
-            res.redirect('/')
-        }).catch(err => {
-            req.flash('error_msg', 'Error ao editar dados' + err)
-            res.redirect('/')
-        })
+            if (req.body.validate == "false") {
+                res.json({ responseid: 101 })
+            } else {
 
+                res.json({ responseid: 200 })
+                    ativarloja.nomeloja = req.body.nomeloja,
+                    ativarloja.eTipopessoa = req.body.Tipopessoa,
+                    ativarloja.rzsocial = req.body.rzsocial,
+                    ativarloja.cnpj = req.body.cnpj,
+                    ativarloja.nomecompleto = req.body.nomecompleto,
+                    ativarloja.cpf = req.body.cpf,
+                    ativarloja.telefone_loja = req.body.telcomercial,
+                    ativarloja.celular_loja = req.body.celcomercial,
+                    ativarloja.email_loja = req.body.email,
+                    ativarloja.cep = req.body.cep,
+                    ativarloja.endereco = req.body.logradouro,
+                    ativarloja.numero = req.body.numero,
+                    ativarloja.bairro = req.body.bairro,
+                    ativarloja.cidade = req.body.localidade,
+                    ativarloja.uf = req.body.uf,
+                    ativarloja.eTipoconta = 2
+                ativarloja.save().then(() => {
+
+
+                }).catch(err => {
+                    console.log(err)
+
+                })
+
+            }
+        } catch (err) {
+
+        }
     })
-})
 
-module.exports = router
+        module.exports = router

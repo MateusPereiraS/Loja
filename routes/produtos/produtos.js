@@ -33,4 +33,10 @@ router.get('/meusprodutos/:id', eAdmin, async (req, res) => {
     }
 })
 
+router.get('/produtos-cadastro', eAdmin, async (req, res) => {
+    
+    res.render('./vendedores/produtos-cadastro')
+    
+})
+
 module.exports = router
