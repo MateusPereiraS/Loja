@@ -1,33 +1,15 @@
 {{>_navb}}
 
-<div class="preloader">
-    <div class="loader">
-        <div class="ytp-spinner">
-            <div class="ytp-spinner-container">
-                <div class="ytp-spinner-rotator">
-                    <div class="ytp-spinner-left">
-                        <div class="ytp-spinner-circle"></div>
-                    </div>
-                    <div class="ytp-spinner-right">
-                        <div class="ytp-spinner-circle"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <section class="banner-area bg_cover">
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
                 <div class="banner-content">
-                    <h1 class="text-white">Vendedores</h1>
+                    <h1 class="text-white">Loja</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Sign up Page</li>
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Loja virtual</li>
                         </ol>
                     </nav>
                 </div>
@@ -35,207 +17,228 @@
         </div>
     </div>
 </section>
-<section class="login-area pt-70 pb-70">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-10">
-                <div class="login-wrapper box-style">
-                    <h3 class="mb-20">Cadastre-se:</h3>
-                    {{#if error_msg}}
-                    <div class="alert alert-danger alertIndexSumir" style="display: inline-block;text-align: center; position:
-                        relactive; width:50%;">{{error_msg}} <a href="/login">Login</a></div>
-                    {{/if}}
-                    {{#each erros}}
-                    <div class="alert alert-danger" style="display: inline-block;text-align: center; position:
-                        relactive; width:50%;">{{texto}}</div>
-                    {{else}}
+<section class="dashboard-area pb-110">
+    <div class="row justify-content-center">
+        <div class="col-xl-7 col-lg-8">
+            <div class="post-ad-wrapper box-style">
+                <div class="title">
+                    <h3 style="text-align: center;"> Informações da loja </h3></br>
+                </div>
+                <div class="post-ad-form-wrapper">
+                    <form id="form-cadastrar-loja" action="/usuarios/ativar-vendedor" method="post">
+                        <div class="container">
+                            <form>
+                                <input type="hidden" id="idvendedor" name="idvendedor" value="{{usuario._id}}">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="nomeloja" name="nomeloja"
+                                        placeholder="name@example.com" required>
+                                    <label for="nomeloja">Nome da loja</label>
+                                </div>
 
-                    {{/each}}
-                    <form action="/usuarios/ativar-vendedor" method="post">
-                    <input type="hidden" id="idvendedor" name="idvendedor" value="{{usuario._id}}">
-                        <div class="row">
-                                <div class="single-form mb-20">
-                                    <label for="name" class="mb-2">CPF/CNPJ*</label>
-                                    <input type="text" id="cpfcnpj" name="cpfcnpj" placeholder="CPF/CNPJ" required
-                                        class="py-2 px-3 mb-0 rounded border">
+                                <div class="title">
+                                    <center><Label>Pessoa</Label></center>
                                 </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="single-form mb-20">
-                                    <input type="hidden" id="nomeempresa" name="nomeempresa" placeholder="Nome da empresa *" required
-                                        class="py-2 px-3 mb-0 rounded border">
+                                <center>
+                                    <div class="radio-group">
+                                        <input id="fisica" class="radio-group__option" type="radio" name="opt">
+                                        <label class="radio-group__label" for="fisica">
+                                            Física
+                                        </label>
+
+                                        <input id="juridica" class="radio-group__option" type="radio" name="opt"
+                                            value="cnpj">
+                                        <label class="radio-group__label" for="juridica">
+                                            Jurídica
+                                        </label>
+                                    </div>
+                                    <br />
+                                </center>
+                                <input type="hidden" id="Tipopessoa" name="Tipopessoa">
+                                <div class="camposExtrascnpj">
+
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="rzsocial" name="rzsocial"
+                                            placeholder="name@example.com">
+                                        <label for="rzsocial">Razão social</label>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="cnpj" name="cnpj"
+                                            placeholder="name@example.com" onkeyup="cnpjCheck(this)" value=""
+                                            autocomplete="off">
+                                        <label for="cnpj">CNPJ</label>
+                                        <span class="d-inline" id="cnpjResponse"></span></p>
+
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="single-form mb-20">
-                                    <input type="hidden" id="razaosocial" name="razaosocial" placeholder="Razão social *" required
-                                        class="py-2 px-3 mb-0 rounded border">
+
+
+                                <div class="camposExtrascpf">
+
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="nomecompleto" name="nomecompleto"
+                                            placeholder="name@example.com" value="">
+                                        <label for="nomecompleto">Nome completo</label>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="cpf" name="cpf"
+                                            placeholder="name@example.com" onkeyup="cpfCheck(this)" maxlength="18"
+                                            value="" autocomplete="off" onkeydown="javascript: fMasc( this, mCPF );">
+
+                                        <label for="floatingInput">CPF</label>
+                                        <span class="d-inline" id="cpfResponse"></span></p>
+                                    </div>
+                                    <input type="hidden" id="validate" name="validate">
                                 </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="single-form mb-20">
-                                    <label for="name" class="mb-2">Telefone comercial*</label>
-                                    <input type="text" id="telcomercial" name="telcomercial" placeholder="(00) 0000-0000" required
-                                        class="py-2 px-3 mb-0 rounded border">
+
+                                <div class="title">
+                                    <h5 style="color: rgb(104, 104, 104);">
+                                        <center>Contato e localização</center>
+                                    </h5></br>
                                 </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="single-form mb-20">
-                                    <label for="name" class="mb-2">Telefone celular*</label>
-                                    <input type="text" id="telcelular" name="telcelular" placeholder="(00) 00000-0000" required
-                                        class="py-2 px-3 mb-0 rounded border">
+                                <div class="row g-2">
+                                    <div class="col-md">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="telcomercial"
+                                                name="telcomercial" placeholder="0">
+                                            <label for="telcomercial">Telefone</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="celcomercial"
+                                                name="celcomercial" value=placeholder="0" required>
+                                            <label for="celcomercial">Celular</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-floating">
+                                            <input type="email" class="form-control" id="email" name="email"
+                                                placeholder="0">
+                                            <label for="email">Email</label>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="single-form mb-30">
-                                    <button class="main-btn btn-hover py-2 px-5 rounded"
-                                        onclick="validacao()">Cadastrar</button>
+                                <div class="row g-2">
+                                    <div class="col-md-3">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="cep" name="cep" placeholder="0"
+                                                required>
+                                            <label for="cep">CEP</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="logradouro" name="logradouro"
+                                                placeholder="0" required>
+                                            <label for="logradouro">Endereço</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-floating">
+                                            <input type="number" class="form-control" id="numero" name="numero"
+                                                placeholder="0" required>
+                                            <label for="numero">N°, ap, lote</label>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="row g-2">
+                                    <div class="col-md">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="bairro" name="bairro"
+                                                placeholder="0" required>
+                                            <label for="bairro">Bairro</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="localidade" name="localidade"
+                                                placeholder="0" required>
+                                            <label for="localidade">Cidade</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="uf" name="uf" placeholder="0"
+                                                required>
+                                            <label for="uf">UF</label>
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
+                        <button class="main-btn btn-hover" id="salvar">Salvar</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    </div>
-    </div>
-    </div>
 </section>
 
+<script src="/assets/js/vendedor/registro-vendedor.js"></script>
 
-<section class="subscribe-area">
-    <div class="container">
-        <div class="subscribe-wrapper bg_cover">
-            <div class="row align-items-center">
-                <div class="col-lg-7">
-                    <div class="subscribe-content section-title">
-                        <h1 class="text-white">Subscribe Our Newsletter</h1>
-                        <p class="text-white">Buy and sell everything from used cars to mobile phones and computer
-                            or search for property.</p>
-                    </div>
-                </div>
-                <div class="col-lg-5">
-                    <div class="subscribe-form-wrapper">
-                        <form action="#" class="subscribe-form">
-                            <input type="email" name="sub-email" placeholder="Enter your Email">
-                            <button><i class="lni lni-telegram-original"></i></button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<section class="client-logo-area pt-140 pb-110">
-    <div class="container">
-        <div class="row">
-            <div class="mx-auto col-xl-6 col-lg-7 col-md-10">
-                <div class="text-center section-title mb-60">
-                    <h1>Our Trusted Company</h1>
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr sed diam nonumy eirmod tempor
-                        invidunt ut labore et
-                        dolore magna.</p>
-                </div>
-            </div>
-        </div>
-        <div class="client-logo-wrapper">
-            <div class="row">
-                <div class="col-lg-3 col-sm-6">
-                    <div class="single-logo">
-                        <img src="/assets/images/client-logo/uideck-logo.svg" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="single-logo">
-                        <img src="/assets/images/client-logo/pagebulb-logo.svg" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="single-logo">
-                        <img src="/assets/images/client-logo/lineicons-logo.svg" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="single-logo">
-                        <img src="/assets/images/client-logo/graygrids-logo.svg" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
+<script>
+      document.querySelector('#juridica').checked = true
+    $('.camposExtrascpf').hide();
+    $('#rzsocial').prop('required', true);
+    $('#nomecompleto').removeAttr('required');
+    $('#cpf').removeAttr('required');
+    $('#cnpj').prop('required', true);
 
 </script>
-<!-- Validação de e-mail -->
+
 <script>
-    function validacaoEmail(field) {
-        usuario = field.value.substring(0, field.value.indexOf("@"));
-        dominio = field.value.substring(field.value.indexOf("@") + 1, field.value.length);
-        if ((usuario.length >= 1) &&
-            (dominio.length >= 3) &&
-            (usuario.search("@") == -1) &&
-            (dominio.search("@") == -1) &&
-            (usuario.search(" ") == -1) &&
-            (dominio.search(" ") == -1) &&
-            (dominio.search(".") != -1) &&
-            (dominio.indexOf(".") >= 1) &&
-            (dominio.lastIndexOf(".") < dominio.length - 1)) {
-        }
-        else {
-            document.getElementById("msgemail").innerHTML = "<font color='red'>Email inválido!</font>";
-        }
+    $("#cpf").mask("000.000.000-00");
+    $("#cep").mask("00000-000");
+    $("#telcomercial").mask("(00)0000-0000")
+    $("#celcomercial").mask("(00)00000-0000")
+    $("#cnpj").mask("00.000.000/0000-00")
+
+</script>
+
+<script>
+    if ({{ usuario.eTipopessoa }} == 1) {
+        document.querySelector('#juridica').checked = true
+        document.querySelector('#Tipopessoa').value = "1"
+        $('.camposExtrascnpj').show();
+        $('.camposExtrascpf').hide();
+        $('#rzsocial').prop('required', true);
+        $('#nomecompleto').removeAttr('required');
+        $('#cpf').removeAttr('required');
+        $('#cnpj').prop('required', true);
+    } if ({{ usuario.eTipopessoa }} == 2) {
+        document.querySelector('#fisica').checked = true
+        document.querySelector('#Tipopessoa').value = "2"
+        $('.camposExtrascnpj').hide();
+        $('.camposExtrascpf').show();
+        $('#rzsocial').removeAttr('required');
+        $('#nomecompleto').prop('required', true);
+        $('#cnpj').removeAttr('required');
+        $('#cpf').prop('required', true);
+    }else {
+        $('.camposExtrascpf').hide();
     }
-</script>
+    </script>
+    <script>
 
-<!-- Validação de senha -->
-<script>
-    function validacaoSenha(field) {
-        senhacont = field.value
-        if ((senha.value == senha2.value) && (senhacont.length >= 4)) {
-        }
-        else {
-            document.getElementById("msgsenha").innerHTML = "<font color='red'>Senhas divergentes ou muito curta!</font>";
-
-        }
-    }
-</script>
-
-<script>
-    //Mascara CPF/CNPJ
-    $("#cpfcnpj").keydown(function () {
-        try {
-            $("#cpfcnpj").unmask();
-        } catch (e) { }
-
-        var tamanho = $("#cpfcnpj").val().length;
-
-        if (tamanho < 11) {
-            $("#cpfcnpj").mask("999.999.999-99");
-            document.getElementById("nomeempresa").type = "hidden";
-            document.getElementById("razaosocial").type = "hidden";
-           
+    $(".radio-group__option").change(function () {
+        if ($(this).val() == "cnpj") {
+            document.querySelector('#Tipopessoa').value = "1"
+            $('.camposExtrascnpj').show();
+            $('.camposExtrascpf').hide();
+            $('#rzsocial').prop('required', true);
+            $('#nomecompleto').removeAttr('required');
+            $('#cpf').removeAttr('required');
+            $('#cnpj').prop('required', true);
         } else {
-            $("#cpfcnpj").mask("99.999.999/9999-99");
-            document.getElementById("nomeempresa").type = "text";
-            document.getElementById("razaosocial").type = "text";
-           
+            document.querySelector('#Tipopessoa').value = "2"
+            $('.camposExtrascnpj').hide();
+            $('.camposExtrascpf').show();
+            $('#rzsocial').removeAttr('required');
+            $('#nomecompleto').prop('required', true);
+            $('#cnpj').removeAttr('required');
+            $('#cpf').prop('required', true);
         }
-
-        // ajustando foco
-        var elem = this;
-        setTimeout(function () {
-            // mudo a posição do seletor
-            elem.selectionStart = elem.selectionEnd = 10000;
-        }, 0);
-        // reaplico o valor para mudar o foco
-        var currentValue = $(this).val();
-        $(this).val('');
-        $(this).val(currentValue);
     });
-</script>
 
-{{>_rodape}}
+</script>

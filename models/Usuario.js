@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs")
 const Schema = mongoose.Schema;
 
 const Usuario = new Schema({
-    nome: {
+    nick: {
         type: String,
         required: true
     },
@@ -11,12 +11,24 @@ const Usuario = new Schema({
         type: String,
         required: true
     },
+    cpf_user:{
+        type: String,
+        required: true
+    },
+    data_idade:{
+        type: String,
+        required: true
+    },
+    celular_user: {
+        type: String
+    },
     eAdmin: {
         type: Number,
         default: 1
     },
     senha: {
         type: String,
+        required: true
     },
     senhaResetToken: {
         type: String,
@@ -26,10 +38,31 @@ const Usuario = new Schema({
         type: Date,
         select: false,
     },
-    cpf_cnpj: {
+    eTipopessoa:{
         type: String
     },
-    celular: {
+    nomeloja: {
+        type: String
+    },
+    cnpj: {
+        type: String
+    },
+    rzsocial: {
+        type: String
+    },
+    nomecompleto:{
+        type: String
+    },
+    cpf: {
+        type: String
+    },
+    celular_loja:{
+        type: String
+    },
+    telefone_loja:{
+        type: String
+    },
+    email_loja:{
         type: String
     },
     cep: {
@@ -44,13 +77,10 @@ const Usuario = new Schema({
     endereco: {
         type: String
     },
+    numero:{
+        type: Number
+    },
     bairro: {
-        type: String
-    },
-    nomeemp: {
-        type: String
-    },
-    razaosoc: {
         type: String
     },
     telefoneemp: {
@@ -59,18 +89,20 @@ const Usuario = new Schema({
     celularemp: {
         type: String
     },
-    eTipo: {
+    instagram:{
+        type: String
+    },
+    facebook:{
+        type: String
+    },
+    whatsapp:{
+        type: String
+    },
+    eTipoconta: {
         type: Number
     },
 },
     { timestamps: true })
-
-   
-Usuario.pre('save', async function(next) {
-    const hash = await bcrypt.hash(this.senha, 10)
-    this.senha = hash
-    next()
-  })
 
 
 mongoose.model("usuarios", Usuario)

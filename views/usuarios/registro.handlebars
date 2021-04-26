@@ -1,23 +1,4 @@
 {{>_navb}}
-
-<div class="preloader">
-    <div class="loader">
-        <div class="ytp-spinner">
-            <div class="ytp-spinner-container">
-                <div class="ytp-spinner-rotator">
-                    <div class="ytp-spinner-left">
-                        <div class="ytp-spinner-circle"></div>
-                    </div>
-                    <div class="ytp-spinner-right">
-                        <div class="ytp-spinner-circle"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <section class="banner-area bg_cover">
     <div class="container">
         <div class="row">
@@ -26,8 +7,8 @@
                     <h1 class="text-white">Cadastro</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Sign up Page</li>
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Página de Cadastro</li>
                         </ol>
                     </nav>
                 </div>
@@ -35,154 +16,246 @@
         </div>
     </div>
 </section>
-<section class="login-area pt-70 pb-70">
+<header class="dashboard-area pb-110">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-10">
                 <div class="login-wrapper box-style">
                     <h3 class="mb-20">Cadastre-se:</h3>
-                    {{#if error_msg}}
-                    <div class="alert alert-danger alertIndexSumir" style="display: inline-block;text-align: center; position:
-                        relactive; width:50%;">{{error_msg}} <a href="/login">Login</a></div>
-                    {{/if}}
-                    {{#each erros}}
-                    <div class="alert alert-danger" style="display: inline-block;text-align: center; position:
-                        relactive; width:50%;">{{texto}}</div>
-                    {{else}}
-
-                    {{/each}}
                     <form name="usuariocad" action="/usuarios/registro/add" method="post">
                         <div class="row">
-                            <div class="col-12">
-                                <div class="single-form mb-20">
-                                    <label for="email" class="mb-2">Email</label>
-                                    <input type="email" id="email" name="email" placeholder="Email"
-                                        onblur="validacaoEmail(this)" maxlength="60" size='65' required
-                                        class="py-2 px-3 mb-0 rounded border">
+                            <div class="col-md">
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        placeholder="name@example.com" required>
+                                    <label for="email">E-mail</label>
                                 </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="single-form mb-20">
-                                    <label for="name" class="mb-2">Nome</label>
-                                    <input type="text" id="nome" name="nome" placeholder="Nome" required
-                                        class="py-2 px-3 mb-0 rounded border">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="single-form mb-20">
-                                    <label for="senha" class="mb-2">Senha</label>
-                                    <input type="password" id="senha" name="senha" placeholder="****" required
-                                        class="py-2 px-3 mb-0 rounded border">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="single-form mb-20">
-                                    <label for="senha2" class="mb-2">Confirmar senha</label>
-                                    <input type="password" id="senha2" name="senha2" placeholder="****"
-                                        onblur="validacaoSenha(this)" maxlength="60" size='65' required
-                                        class="py-2 px-3 mb-0 rounded border">
-                                    <span class="d-inline" id="msgsenha"></span></p>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="single-form mb-30">
-                                    <button class="main-btn btn-hover py-2 px-5 rounded">Cadastrar</button>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="single-form mb-30">
-                                    <p>Possui uma conta? <a href="login">Login</a></p>
-                                </div>
-                            </div>
-                        </div>
+
+                                <div class="col-md">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="nick" name="nick"
+                                            placeholder="name@example.com" required>
+                                        <label for="nick">Nome do usuário</label>
+                                    </div>
+                                    <div class="row g-2">
+                                        <div class="col-md">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="cpf" name="cpf"
+                                                    placeholder="name@example.com" onkeyup="cpfCheck(this)"
+                                                    maxlength="18" onkeydown="javascript: fMasc( this, mCPF );"
+                                                    onblur="cpfvalid(this)" required>
+                                                <label for="cpf">CPF</label>
+                                                <span class="d-inline" id="cpfResponse" name="cpfResponse"></span>
+                                                <input type="hidden" id="validacpf" name="validacpf">
+                                            </div>
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="form-floating mb-3">
+                                                <input type="date" class="form-control" name="idade" id='idade'
+                                                    onchange="ageCount()" maxlength="8" placeholder="name@example.com"
+                                                    required>
+                                                <label for="idade">Data de nascimento</label>
+                                            </div>
+                                            <input type="hidden" id="demo" name="demo">
+                                        </div>
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-floating mb-3">
+                                            <input type="password" class="form-control" id="senha" name="senha"
+                                                placeholder="name@example.com" required>
+                                            <label for="senha">Senha</label>
+                                        </div>
+
+                                        <div class="col-md">
+                                            <div class="form-floating mb-3">
+                                                <input type="password" class="form-control" id="senha2" name="senha2"
+                                                    placeholder="name@example.com" required>
+                                                <label for="senha2">Confirmar senha</label>
+
+                                                <div class="form-check check-style">
+                                                    <input class="form-check-input" type="checkbox" value=""
+                                                        id="flexCheckDefault2">
+                                                    <label for="flexCheckDefault2">Li e concordo com os <a href="/">termos de uso.</a></label>
+                                                </div>
+                                                
+                                                <div class="col-12">
+                                                    <div class="single-form mb-30">
+                                                        </br>
+                                                        <button
+                                                            class="main-btn btn-hover py-2 px-5 rounded">Cadastrar</button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="single-form mb-30">
+                                                        <p>Possui uma conta? <a href="/login">Login</a></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    </div>
-    </div>
-    </div>
-    </form>
-</section>
+</header>
 
+{{#if error_msg}}
 
-<section class="subscribe-area">
-    <div class="container">
-        <div class="subscribe-wrapper bg_cover">
-            <div class="row align-items-center">
-                <div class="col-lg-7">
-                    <div class="subscribe-content section-title">
-                        <h1 class="text-white">Subscribe Our Newsletter</h1>
-                        <p class="text-white">Buy and sell everything from used cars to mobile phones and computer
-                            or search for property.</p>
-                    </div>
-                </div>
-                <div class="col-lg-5">
-                    <div class="subscribe-form-wrapper">
-                        <form action="#" class="subscribe-form">
-                            <input type="email" name="sub-email" placeholder="Enter your Email">
-                            <button><i class="lni lni-telegram-original"></i></button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<section class="client-logo-area pt-140 pb-110">
-    <div class="container">
-        <div class="row">
-            <div class="mx-auto col-xl-6 col-lg-7 col-md-10">
-                <div class="text-center section-title mb-60">
-                    <h1>Our Trusted Company</h1>
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr sed diam nonumy eirmod tempor
-                        invidunt ut labore et
-                        dolore magna.</p>
-                </div>
-            </div>
-        </div>
-        <div class="client-logo-wrapper">
-            <div class="row">
-                <div class="col-lg-3 col-sm-6">
-                    <div class="single-logo">
-                        <img src="/assets/images/client-logo/uideck-logo.svg" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="single-logo">
-                        <img src="/assets/images/client-logo/pagebulb-logo.svg" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="single-logo">
-                        <img src="/assets/images/client-logo/lineicons-logo.svg" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="single-logo">
-                        <img src="/assets/images/client-logo/graygrids-logo.svg" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-</script>
-<!-- Validação de senha -->
 <script>
-    function validacaoSenha(field) {
-        senhacont = field.value
-        if ((senha.value == senha2.value) && (senhacont.length >= 4)) {
-        }
-        else {
-            document.getElementById("msgsenha").innerHTML = "<font color='red'>Senhas divergentes ou muito curta!</font>";
+    $(document).ready(() => {
+        Swal.fire({
+            icon: 'error',
+            text: '{{error_msg}}',
+            footer: '<a href="/login">Possui uma conta?</a>',
 
-        }
-    }
+        })
+
+    })
+
 </script>
 
-{{>_rodape}}
+{{/if}}
+{{#each erros}}
+<script>
+    $(document).ready(() => {
+        Swal.fire({
+            icon: 'error',
+            title: '{{texto}}',
+
+        })
+
+    })
+
+</script>
+
+{{else}}
+{{/each}}
+
+<script>
+    //verifica CPF
+
+    function is_cpf(c) {
+
+        if ((c = c.replace(/[^\d]/g, "")).length != 11)
+            return false
+
+        if (c == "00000000000" || c == "11111111111" || c == "22222222222" || c == "33333333333" || c == "44444444444" || c == "55555555555" || c == "66666666666" || c == "77777777777" || c == "88888888888" || c == "99999999999")
+            return false;
+
+        var r;
+        var s = 0;
+
+        for (i = 1; i <= 9; i++)
+            s = s + parseInt(c[i - 1]) * (11 - i);
+
+        r = (s * 10) % 11;
+
+        if ((r == 10) || (r == 11))
+            r = 0;
+
+        if (r != parseInt(c[9]))
+            return false;
+
+        s = 0;
+
+        for (i = 1; i <= 10; i++)
+            s = s + parseInt(c[i - 1]) * (12 - i);
+
+        r = (s * 10) % 11;
+
+        if ((r == 10) || (r == 11))
+            r = 0;
+
+        if (r != parseInt(c[10]))
+            return false;
+
+        return true;
+    }
+
+
+    function fMasc(objeto, mascara) {
+        obj = objeto
+        masc = mascara
+        setTimeout("fMascEx()", 1)
+    }
+
+    function fMascEx() {
+        obj.value = masc(obj.value)
+    }
+
+    function mCPF(cpf) {
+        cpf = cpf.replace(/\D/g, "")
+        cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
+        cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
+        cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
+        return cpf
+    }
+
+    cpfCheck = function (el) {
+
+        document.getElementById('cpfResponse').innerHTML = is_cpf(el.value) ? '<i style="color: green" class="fas fa-check">Valido</i>' : '<i style="color: red" class="fas fa-times">Inválido</i>';
+
+        if (document.getElementById('cpfResponse').textContent == "Inválido") {
+            document.getElementById('validacpf').value = "Inválido"
+            $('#salvar').attr("disabled", true);
+
+        } if (document.getElementById('cpfResponse').textContent == "Valido") {
+            document.getElementById('validacpf').value = "Valido"
+            $('#salvar').attr("disabled", false);
+        }
+
+    }
+
+
+
+    $("#cpf").mask("000.000.000-00");
+</script>
+
+<script>
+    function ageCount() {
+
+
+        var inputNascimento = document.getElementById("idade");
+        var data = new Date(inputNascimento.value);
+        if (isDate_(inputNascimento.value) && data.getFullYear() > 1900)
+            document.getElementById("demo").value = calculateAge(inputNascimento.value);
+    }
+
+    function calculateAge(dobString) {
+        var dob = new Date(dobString);
+        var currentDate = new Date();
+        var currentYear = currentDate.getFullYear();
+        var birthdayThisYear = new Date(currentYear, dob.getMonth(), dob.getDate());
+        var age = currentYear - dob.getFullYear();
+        if (birthdayThisYear > currentDate) {
+            age--;
+        }
+        return age;
+    }
+
+    function calcular(data) {
+        var data = document.form.nascimento.value;
+        alert(data);
+        var partes = data.split("/");
+        var junta = partes[2] + "-" + partes[1] + "-" + partes[0];
+        document.form.idade.value = (calculateAge(junta));
+    }
+
+    var isDate_ = function (input) {
+        var status = false;
+        if (!input || input.length <= 0) {
+            status = false;
+        } else {
+            var result = new Date(input);
+            if (result == 'Invalid Date') {
+                status = false;
+            } else {
+                status = true;
+            }
+        }
+        return status;
+    }
+
+
+
+</script>
